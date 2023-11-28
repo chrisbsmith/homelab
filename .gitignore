@@ -1,6 +1,8 @@
 # Trash
 .DS_Store
 Thumbs.db
+.vscode/
+
 # k8s
 kubeconfig
 .decrypted~*.yaml
@@ -10,3 +12,17 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+
+ansible/
+
+
+# Just to slowly introduce apps to the cluster
+# kube-system
+kubernetes/apps/kube-system/cilium
+kubernetes/apps/kube-system/coredns
+kubernetes/apps/kube-system/metrics-server
+kubernetes/apps/kube-system/snapshot-controller
+kubernetes/apps/kube-system/local-path-provisioner
+
+# volsync
+kubernetes/apps/volsync
