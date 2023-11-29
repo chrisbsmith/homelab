@@ -21,7 +21,6 @@ ansible/
 kubernetes/apps/kube-system/cilium
 kubernetes/apps/kube-system/coredns
 kubernetes/apps/kube-system/metrics-server
-kubernetes/apps/kube-system/snapshot-controller
 kubernetes/apps/kube-system/local-path-provisioner
 
 # volsync
