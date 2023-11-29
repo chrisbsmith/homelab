@@ -31,3 +31,7 @@
 - name: Process addon discord-template-notifier
   when: discord_template_notifier.enabled | default(false)
   ansible.builtin.include_tasks: discord_template_notifier.yaml
+
+- name: Process addon synology-csi
+  when: synology_csi.enabled | default(false)
+  ansible.builtin.include_tasks: synology-csi.yaml

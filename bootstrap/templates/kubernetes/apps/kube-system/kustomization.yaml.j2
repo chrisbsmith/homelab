@@ -16,3 +16,6 @@ resources:
   {% if system_upgrade_controller.enabled | default(false) %}
   - ./system-upgrade-controller/ks.yaml
   {% endif %}
+  {% if synology_csi.enabled | default(false) %}
+  - ./synology-csi/ks.yaml
+  {% endif %}
