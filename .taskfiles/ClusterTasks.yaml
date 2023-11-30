@@ -79,3 +79,7 @@ tasks:
       - task: certificates
       - task: ingresses
       - task: pods
+
+  dashboardtoken:
+    desc: Get the Dashboard token
+    cmd: kubectl -n monitoring get secret kubernetes-dashboard -o jsonpath='{.data.token}' | base64 -d
