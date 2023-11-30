@@ -12,15 +12,3 @@ kubeconfig
 *.key
 # Ansible
 .venv*
-
-ansible/
-
-
-# Just to slowly introduce apps to the cluster
-# kube-system
-kubernetes/apps/kube-system/cilium
-kubernetes/apps/kube-system/coredns
-kubernetes/apps/kube-system/local-path-provisioner
-
-# volsync
-kubernetes/apps/volsync

@@ -1,0 +1,8 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        imac2:
+          ansible_user: smith
+          ansible_host: 10.20.0.77
