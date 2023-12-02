@@ -9,9 +9,9 @@
 
 - name: Template Kubernetes unencrypted files
   block:
-    - name: Base64 encode the 1Password Credentials
-      ansible.builtin.shell: echo "{{ onepassword.credentials_json }}" | base64 | tr '/+' '_-' | tr -d '=' | tr -d '\n'
-      register: onepassword_b64
+    # - name: Base64 encode the 1Password Credentials
+    #   ansible.builtin.shell: echo "{{ onepassword.credentials_json }}" | base64 | tr '/+' '_-' | tr -d '=' | tr -d '\n'
+    #   register: onepassword_b64
     - name: Template Kubernetes unencrypted files
       when:
         - item.state == 'file'
