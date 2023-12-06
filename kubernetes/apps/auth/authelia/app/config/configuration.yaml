@@ -1,7 +1,4 @@
 ---
-theme: dark
-redirection_url: ${AUTHELIA_DEFAULT_REDIRECTION_URL}
-
 authentication_backend:
   password_reset:
     disable: true
@@ -17,8 +14,7 @@ authentication_backend:
     additional_groups_dn: ou=groups
     groups_filter: (member={dn})
     group_search_mode: filter
-    user: uid=authelia,ou=people,${BASE_DN}
-    password: ${LDAP_PASSWORD}
+    password: password
     attributes:
       username: uid
       display_name: displayName
