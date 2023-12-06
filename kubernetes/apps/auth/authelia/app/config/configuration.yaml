@@ -1,4 +1,7 @@
 ---
+theme: dark
+redirection_url: ${AUTHELIA_DEFAULT_REDIRECTION_URL}
+
 authentication_backend:
   password_reset:
     disable: true
@@ -8,12 +11,14 @@ authentication_backend:
     implementation: custom
     timeout: 5s
     start_tls: false
+    base_dn: ${BASE_DN}
     additional_users_dn: ou=people
     users_filter: (&({username_attribute}={input})(objectClass=person))
     additional_groups_dn: ou=groups
     groups_filter: (member={dn})
     group_search_mode: filter
-    password: password
+    user: uid=authelia,ou=people,${BASE_DN}
+    password: ${LDAP_PASSWORD}
     attributes:
       username: uid
       display_name: displayName
@@ -22,10 +27,16 @@ authentication_backend:
       group_name: cn
 
 session:
+  name: ${AUTHELIA_SESSION_NAME}
   same_site: lax
   inactivity: 5m
   expiration: 1h
   remember_me: 1M
+  cookies:
+    - name: ${DOMAIN}_session
+      domain: ${DOMAIN}
+      authelia_url: https://auth.${DOMAIN}
+      default_redirection_url: https://${DOMAIN}
   redis:
     host: redis.database.svc.cluster.local
     database_index: 14
@@ -78,5 +89,5 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris: ["https://grafana.${CLOUDFLARE_DOMAIN}/login/generic_oauth"]
+        redirect_uris: ["https://grafana.${OMAIN}/login/generic_oauth"]
         userinfo_signed_response_alg: none
