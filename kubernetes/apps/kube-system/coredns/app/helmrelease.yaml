@@ -57,7 +57,7 @@ spec:
           - name: prometheus
             parameters: 0.0.0.0:9153
           - name: forward
-            parameters: . /etc/resolv.conf
+            parameters: . ${SECRET_INTERNAL_DNS}
           - name: cache
             parameters: 30
           - name: loop
