@@ -24,10 +24,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    viewSecretsResourceNames: ["oidc-auth"]
+    additionalArgs: ["--auth-methods",  "oidc"]
     adminUser:
-      create: true
-      createSecret: false
-      username: admin
+      create: false
+    envVars:
+    - name: WEAVE_GITOPS_FEATURE_OIDC_BUTTON_LABEL
+      value: "Login with Authelia"
     ingress:
       enabled: true
       className: internal
@@ -47,6 +50,6 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: ["admin"]
+      impersonationResourceNames: ["admins"]
     podAnnotations:
-      secret.reloader.stakater.com/reload: cluster-user-auth
+      secret.reloader.stakater.com/reload: oidc-auth
