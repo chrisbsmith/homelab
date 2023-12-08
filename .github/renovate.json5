@@ -12,7 +12,6 @@
     ":timezone(America/New_York)",
     "github>chrisbsmith/homelab//.github/renovate/allowedVersions.json5",
     "github>chrisbsmith/homelab//.github/renovate/autoMerge.json5",
-    "github>chrisbsmith/homelab//.github/renovate/clusters.json5",
     "github>chrisbsmith/homelab//.github/renovate/commitMessage.json5",
     "github>chrisbsmith/homelab//.github/renovate/customDatasources.json5",
     "github>chrisbsmith/homelab//.github/renovate/customManagers.json5",
