@@ -65,6 +65,8 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+              securityContext:
+                privileged: true
             securityContext:
               runAsUser: 568
               runAsGroup: 568
