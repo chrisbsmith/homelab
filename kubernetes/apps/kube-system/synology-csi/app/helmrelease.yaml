@@ -30,3 +30,6 @@ spec:
     clientInfoSecret:
       create: false
       name: "synology-csi-client-info-secret"
+    volumeSnapshotClasses:
+      delete:
+        deletionPolicy: Delete
