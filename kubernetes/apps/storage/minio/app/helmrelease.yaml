@@ -112,3 +112,6 @@ spec:
       config:
         enabled: true
         existingClaim: minio-nfs
+        globalMounts:
+          - path: /data
+            readOnly: false
