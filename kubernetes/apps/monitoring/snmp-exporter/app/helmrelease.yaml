@@ -96,7 +96,7 @@ spec:
     service:
       main:
         ports:
-          snmp:
+          http:
             port: *port
 
 
