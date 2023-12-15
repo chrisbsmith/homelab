@@ -103,24 +103,24 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-          endpoints:
-            - port: http
-              honorLabels: true
-              path: /snmp
-              scrapeTimeout: 10s
-              params:
-                module: [if_mib]
-                target:
-                - 127.0.0.1
-              metricRelabelings:
-                - sourceLabels: [instance]
-                  targetLabel: instance
-                  replacement: 127.0.0.1
-                  action: replace
-                - sourceLabels: [target]
-                  targetLabel: target
-                  replacement: device1
-                  action: replace
+        endpoints:
+        - port: http
+          honorLabels: true
+          path: /snmp
+          scrapeTimeout: 10s
+          params:
+            module: [if_mib]
+            target:
+            - 127.0.0.1
+          metricRelabelings:
+            - sourceLabels: [instance]
+              targetLabel: instance
+              replacement: 127.0.0.1
+              action: replace
+            - sourceLabels: [target]
+              targetLabel: target
+              replacement: device1
+              action: replace
 
     persistence:
       config:
