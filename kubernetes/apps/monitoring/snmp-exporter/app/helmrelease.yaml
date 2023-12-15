@@ -38,6 +38,7 @@ spec:
               tag: 1.25.3
             env: &configSyncEnv
               FOLDER: /config
+              LABEL: snmp.io/enabled
             resources: &configSyncResources
               requests:
                 cpu: 10m
