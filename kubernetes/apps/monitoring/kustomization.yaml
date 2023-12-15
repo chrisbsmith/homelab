@@ -8,3 +8,4 @@ resources:
   - ./kubernetes-dashboard/ks.yaml
   - ./unpoller/ks.yaml
   - ./gatus/ks.yaml
+  - ./snmp-exporter/ks.yaml
