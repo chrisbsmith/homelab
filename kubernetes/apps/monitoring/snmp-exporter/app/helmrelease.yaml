@@ -34,11 +34,11 @@ spec:
         initContainers:
           init-config:
             image: &configSyncImage
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.25.3
+              repository: ghcr.io/onedr0p/alpine
+              tag: 3.19.0
+            command:
+            - "envsubst < /config/config.yaml > /snmp-config/snmp.yaml"
             env: &configSyncEnv
-              FOLDER: /config
-              LABEL: snmp.io/enabled
             resources: &configSyncResources
               requests:
                 cpu: 10m
@@ -52,7 +52,7 @@ spec:
               repository: prom/snmp-exporter
               tag: v0.25.0
             command:
-              - "--config.file=/config/config.yaml"
+              - "--config.file=/snmp-config/snmp.yaml"
             probes:
               liveness: &probes
                 enabled: true
@@ -124,7 +124,7 @@ spec:
               action: replace
 
     persistence:
-      config:
+      snmp-config:
         enabled: true
         type: emptyDir
       config-file:
@@ -134,3 +134,7 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
+  valuesFrom:
+    - kind: Secret
+      name: snmp-values
+      optional: false
