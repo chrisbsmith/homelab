@@ -49,7 +49,6 @@ spec:
                 memory: 10Mi
               limits:
                 memory: 128Mi
-
         containers:
           main:
             image:
@@ -73,7 +72,6 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -84,7 +82,6 @@ spec:
                 memory: 32Mi
               limits:
                 memory: 128Mi
-
         pod:
           enableServiceLinks: false
           securityContext:
@@ -98,36 +95,11 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: *app
-
     service:
       main:
         ports:
           http:
             port: *port
-
-
-    serviceMonitor:
-      main:
-        enabled: true
-        endpoints:
-        - port: http
-          honorLabels: true
-          path: /snmp
-          scrapeTimeout: 10s
-          params:
-            module: [if_mib]
-            target:
-            - 127.0.0.1
-          metricRelabelings:
-            - sourceLabels: [instance]
-              targetLabel: instance
-              replacement: 127.0.0.1
-              action: replace
-            - sourceLabels: [target]
-              targetLabel: target
-              replacement: device1
-              action: replace
-
     persistence:
       config:
         enabled: true
@@ -142,4 +114,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: snmp-secret
+      valuesKey: values.yaml
       optional: false
