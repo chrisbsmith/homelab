@@ -39,7 +39,7 @@ spec:
             command:
               - sh
               - -c
-              - (printenv; envsubst < /config/config.yaml > /snmp-config/snmp.yaml; cat /snmp-config/snmp.yaml)
+              - (envsubst < /template/config.yaml > /config/snmp.yaml)
             envFrom: &envFrom
               - secretRef:
                   name: snmp-secret
@@ -55,8 +55,8 @@ spec:
             image:
               repository: prom/snmp-exporter
               tag: v0.25.0
-            command:
-              - "--config.file=/snmp-config/snmp.yaml"
+            arg:
+              - "--config.file=/config/snmp.yaml"
             envFrom: &envFrom
             probes:
               liveness: &probes
@@ -129,14 +129,14 @@ spec:
               action: replace
 
     persistence:
-      snmp-config:
+      config:
         enabled: true
         type: emptyDir
       config-file:
         type: configMap
         name: snmp-configmap
         globalMounts:
-          - path: /config/config.yaml
+          - path: /template/config.yaml
             subPath: config.yaml
             readOnly: true
   valuesFrom:
