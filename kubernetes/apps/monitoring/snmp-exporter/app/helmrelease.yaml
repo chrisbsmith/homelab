@@ -39,8 +39,10 @@ spec:
             command:
               - sh
               - -c
-              - (cat /config/config.yaml; envsubst < /config/config.yaml > /snmp-config/snmp.yaml; cat /snmp-config/snmp.yaml)
-            env: &configSyncEnv
+              - (printenv; envsubst < /config/config.yaml > /snmp-config/snmp.yaml; cat /snmp-config/snmp.yaml)
+            envFrom: &envFrom
+              - secretRef:
+                  name: snmp-secret
             resources: &configSyncResources
               requests:
                 cpu: 10m
@@ -55,6 +57,7 @@ spec:
               tag: v0.25.0
             command:
               - "--config.file=/snmp-config/snmp.yaml"
+            envFrom: &envFrom
             probes:
               liveness: &probes
                 enabled: true

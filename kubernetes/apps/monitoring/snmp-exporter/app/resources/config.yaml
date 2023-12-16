@@ -2,6 +2,7 @@
 synology:
   version: 3
   auth:
+    community: synology
     username: ${SNMP_USERNAME}
     password: ${SNMP_PASSWORD}
     auth_protocol: SHA
@@ -2771,5 +2772,3 @@ synology:
       type: DisplayString
     - labels: []
       labelname: serviceInfoIndex
-  auth:
-    community: synology
