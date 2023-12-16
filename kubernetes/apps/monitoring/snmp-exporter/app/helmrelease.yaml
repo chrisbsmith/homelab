@@ -39,7 +39,7 @@ spec:
             command:
               - sh
               - -c
-              - envsubst < /config/config.yaml > /snmp-config/snmp.yaml
+              - (cat /config/config.yaml; envsubst < /config/config.yaml > /snmp-config/snmp.yaml; cat /snmp-config/snmp.yaml)
             env: &configSyncEnv
             resources: &configSyncResources
               requests:
