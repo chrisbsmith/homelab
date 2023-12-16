@@ -37,7 +37,9 @@ spec:
               repository: ghcr.io/onedr0p/alpine
               tag: 3.19.0
             command:
-            - "envsubst < /config/config.yaml > /snmp-config/snmp.yaml"
+              - sh
+              - -c
+              - envsubst < /config/config.yaml > /snmp-config/snmp.yaml
             env: &configSyncEnv
             resources: &configSyncResources
               requests:
