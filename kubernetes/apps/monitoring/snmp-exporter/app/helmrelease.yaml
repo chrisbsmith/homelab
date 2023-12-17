@@ -54,7 +54,7 @@ spec:
             image:
               repository: prom/snmp-exporter
               tag: v0.25.0
-            arg:
+            args:
               - "--config.file=/config/snmp.yaml"
             envFrom: &envFrom
             probes:
