@@ -164,7 +164,7 @@ data:
           objectStorageConfig:
             existingSecret:
               name: thanos-objstore-secret
-              key: thanos.yml
+              key: thanos.yaml
     grafana:
       enabled: false
       forceDeployDashboards: true
