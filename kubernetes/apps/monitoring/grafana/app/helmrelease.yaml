@@ -162,7 +162,7 @@ spec:
         synology-snmp:
           gnetId: 13516
           revision: 3
-          dataSource:
+          datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
       flux:
         flux-cluster:
