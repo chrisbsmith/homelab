@@ -13,6 +13,8 @@ data:
         enabled: true
         pathType: Prefix
         ingressClassName: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         hosts:
           - &host alertmanager.${SECRET_DOMAIN}
         tls:
@@ -120,6 +122,8 @@ data:
     thanosIngress:
       enabled: true
       ingressClassName: internal
+      annotations:
+        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
       hosts:
         - &host thanos-query-frontend.${SECRET_DOMAIN}
       tls:
