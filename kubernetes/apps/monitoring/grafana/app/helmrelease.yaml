@@ -162,7 +162,8 @@ spec:
         synology-snmp:
           gnetId: 13516
           revision: 3
-          dataSource: Prometheus
+          dataSource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
