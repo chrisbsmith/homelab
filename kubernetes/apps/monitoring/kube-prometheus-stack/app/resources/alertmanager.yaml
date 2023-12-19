@@ -14,7 +14,7 @@ route:
     - receiver: "null"
       matchers:
         - alertname =~ "InfoInhibitor"
-    - receiver: "null"
+    - receiver: "email"
       continue: true
       matchers:
         - severity = "critical"
@@ -26,36 +26,30 @@ inhibit_rules:
       - severity = "warning"
 receivers:
   - name: "null"
-  # - name: pushover
-  #   pushover_configs:
-  #     - html: true
-  #       # Compooters are hard
-  #       message: |-
-  #         {{ "{{-" }} range .Alerts {{ "}}" }}
-  #           {{ "{{-" }} if ne .Annotations.description "" {{ "}}" }}
-  #             {{ "{{" }} .Annotations.description {{ "}}" }}
-  #           {{ "{{-" }} else if ne .Annotations.summary "" {{ "}}" }}
-  #             {{ "{{" }} .Annotations.summary {{ "}}" }}
-  #           {{ "{{-" }} else if ne .Annotations.message "" {{ "}}" }}
-  #             {{ "{{" }} .Annotations.message {{ "}}" }}
-  #           {{ "{{-" }} else {{ "}}" }}
-  #             Alert description not available
-  #           {{ "{{-" }} end {{ "}}" }}
-  #           {{ "{{-" }} if gt (len .Labels.SortedPairs) 0 {{ "}}" }}
-  #             <small>
-  #             {{ "{{-" }} range .Labels.SortedPairs {{ "}}" }}
-  #               <b>{{ "{{" }} .Name {{ "}}" }}:</b> {{ "{{" }} .Value {{ "}}" }}
-  #             {{ "{{-" }} end {{ "}}" }}
-  #             </small>
-  #           {{ "{{-" }} end {{ "}}" }}
-  #         {{ "{{-" }} end {{ "}}" }}
-  #       priority: |-
-  #         {{ "{{" }} if eq .Status "firing" {{ "}}" }}1{{ "{{" }} else {{ "}}" }}0{{ "{{" }} end {{ "}}" }}
-  #       send_resolved: true
-  #       sound: gamelan
-  #       title: >-
-  #         {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
-  #         [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
-  #       token: "{{ .ALERTMANAGER_PUSHOVER_TOKEN }}"
-  #       url_title: View in Alertmanager
-  #       user_key: "{{ .PUSHOVER_USER_KEY }}"
+  - name: "email"
+    email_configs:
+      - send_resolved: true
+        to: "{{ .ALERT_MANAGER_TO_EMAIL }}"
+        from: "{{ .ALERT_MANAGER_FROM_EMAIL }}"
+        smarthost: smtp-relay.default.svc.cluster.local:25
+        hello: "Alert Manager"
+        require_tls: false
+        html: |-
+          {{ "{{-" }} range .Alerts {{ "}}" }}
+            {{ "{{-" }} if ne .Annotations.description "" {{ "}}" }}
+              {{ "{{" }} .Annotations.description {{ "}}" }}
+            {{ "{{-" }} else if ne .Annotations.summary "" {{ "}}" }}
+              {{ "{{" }} .Annotations.summary {{ "}}" }}
+            {{ "{{-" }} else if ne .Annotations.message "" {{ "}}" }}
+              {{ "{{" }} .Annotations.message {{ "}}" }}
+            {{ "{{-" }} else {{ "}}" }}
+              Alert description not available
+            {{ "{{-" }} end {{ "}}" }}
+            {{ "{{-" }} if gt (len .Labels.SortedPairs) 0 {{ "}}" }}
+              <small>
+              {{ "{{-" }} range .Labels.SortedPairs {{ "}}" }}
+                <b>{{ "{{" }} .Name {{ "}}" }}:</b> {{ "{{" }} .Value {{ "}}" }}
+              {{ "{{-" }} end {{ "}}" }}
+              </small>
+            {{ "{{-" }} end {{ "}}" }}
+          {{ "{{-" }} end {{ "}}" }}
