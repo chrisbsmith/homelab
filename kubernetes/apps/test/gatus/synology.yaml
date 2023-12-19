@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "synology-gatus-ep"
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: "synology"
+        group: internal
+        url: http://10.20.0.130:5000
+        interval: 1m
+        ui:
+          hide-hostname: true
+          hide-url: true
+        conditions:
+          - "[STATUS] == 200"
+
+      - name: pihole
+        group: internal
+        url: "tcp://10.20.0.33:53"
+        interval: 30s
+        conditions:
+          - "[CONNECTED] == true"
+
+
