@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: set-internal-ingress-to-cname
+  annotations:
+    policies.kyverno.io/title: Ensure all internal ingress resources use a CNAME record
+    policies.kyverno.io/category: Ingress
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Ingress
+    policies.kyverno.io/description: >-
+      Ensures the external-dns annotation to use a CNAME record is set for
+      internal ingress resources
+spec:
+  rules:
+    - name: set-default-internal-scheme
+      match:
+        resources:
+          kinds:
+            - Ingress
+      preconditions:
+        all:
+        - key: "{{ request.object.spec.ingressClassName }}"
+          operator: Equals
+          value: internal
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(external-dns.alpha.kubernetes.io/target): "internal.${SECRET_DOMAIN}"
