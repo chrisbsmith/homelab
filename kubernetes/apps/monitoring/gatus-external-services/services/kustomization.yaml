@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: gatus-external-service-tpl
     files:
-      - gatus-external-service.yaml=./resources/gatus-external-service.yaml
+      - config.yaml=./resources/gatus-external-service.yaml
 generatorOptions:
   disableNameSuffixHash: true
