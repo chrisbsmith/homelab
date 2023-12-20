@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/services/atuin/app
+  path: ./kubernetes/apps/services/atuin/app
   prune: true
   sourceRef:
     kind: GitRepository
