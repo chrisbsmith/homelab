@@ -9,3 +9,4 @@ resources:
   - ./unpoller/ks.yaml
   - ./gatus/ks.yaml
   - ./snmp-exporter/ks.yaml
+  - ./gatus-external-services/ks.yaml
