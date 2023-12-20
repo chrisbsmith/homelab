@@ -2,6 +2,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app gatus-external-secrets
+  namespace: flux-system
+spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/monitoring/gatus-external-services/secrets/
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  dependsOn:
+    - name: external-secrets-stores
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app gatus-external-services
   namespace: flux-system
 spec:
@@ -9,13 +31,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/monitoring/gatus-external-services/services/dns/
+  path: ./kubernetes/apps/monitoring/gatus-external-services/services/
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
   dependsOn:
-    - name: external-secrets-stores
+    - name: gatus-external-secrets
   wait: false
   interval: 30m
   retryInterval: 1m
