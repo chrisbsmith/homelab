@@ -10,7 +10,13 @@ data:
     endpoints:
       - name: "smtp"
         group: internal
-        url: "tcp://smtp-relay.default.cluster.local:25"
-        interval: 30s
+        url: 1.1.1.1
+        interval: 1m
+        ui:
+          hide-hostname: true
+          hide-url: true
+        dns:
+          query-name: "smtp-relay.default.cluster.local"
+          query-type: A
         conditions:
-          - "[CONNECTED] == true"
+          - "len([BODY]) == 0"
