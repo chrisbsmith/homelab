@@ -142,6 +142,7 @@ data:
         ingressClassName: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        pathType: Prefix
         hosts:
           - &host thanos-query-frontend.${SECRET_DOMAIN}
         tls:
