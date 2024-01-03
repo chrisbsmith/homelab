@@ -34,12 +34,12 @@ spec:
         valueFrom:
           secretKeyRef:
             name: external-dns-pihole-secret
-            key: pihole_server
+            key: pihole-server
       - name: EXTERNAL_DNS_PIHOLE_PASSWORD
         valueFrom:
           secretKeyRef:
             name: external-dns-pihole-secret
-            key: pihole_password
+            key: pihole-password
     extraArgs:
       - --ingress-class=internal
     serviceMonitor:
