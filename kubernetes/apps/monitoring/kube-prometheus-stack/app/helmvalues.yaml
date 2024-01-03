@@ -144,10 +144,10 @@ data:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         pathType: Prefix
         hosts:
-          - &host thanos-query-frontend.${SECRET_DOMAIN}
+          - &thanosHost thanos-query-frontend.${SECRET_DOMAIN}
         tls:
           - hosts:
-            - *host
+            - *thanosHost
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
