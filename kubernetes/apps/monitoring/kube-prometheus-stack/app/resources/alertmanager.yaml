@@ -18,6 +18,10 @@ route:
       continue: true
       matchers:
         - severity = "critical"
+    - receiver: "null"
+      matchers:
+        - alertname = "etcdHighCommitDurations"
+        - severity = "warning"
 inhibit_rules:
   - equal: ["alertname", "namespace"]
     source_matchers:
