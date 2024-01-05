@@ -56,7 +56,7 @@ spec:
               tag: v0.25.0
             args:
               - "--config.file=/config/snmp.yaml"
-            envFrom: &envFrom
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -112,7 +112,7 @@ spec:
             subPath: config.yaml
             readOnly: true
   valuesFrom:
-    - kind: Secret
-      name: snmp-secret
-      valuesKey: values.yaml
-      optional: false
+  - kind: Secret
+  name: snmp-secret
+  valuesKey: values.yaml
+  optional: false
