@@ -112,7 +112,7 @@ spec:
             subPath: config.yaml
             readOnly: true
   valuesFrom:
-  - kind: Secret
-  name: snmp-secret
-  valuesKey: values.yaml
-  optional: false
+    - kind: Secret
+      name: snmp-secret
+      valuesKey: values.yaml
+      optional: false
