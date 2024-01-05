@@ -9,8 +9,9 @@ resources:
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
   - ./external-dns.yaml
+  - ./external-secrets.yaml
   - ./grafana.yaml
-  - ./hajimari.yaml
+  # - ./hajimari.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
@@ -18,5 +19,7 @@ resources:
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
+  - ./onepassword.yaml
   - ./stakater.yaml
+  - ./synology-csi.yaml
   - ./weave-gitops.yaml
