@@ -14,3 +14,5 @@ data:
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
+        alerts:
+          - type: pushover

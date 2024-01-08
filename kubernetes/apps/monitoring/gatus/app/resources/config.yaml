@@ -10,15 +10,15 @@ debug: false
 ui:
   title: Status | Gatus
   header: Status
-# alerting:
-#   pushover:
-#     application-token: ${CUSTOM_PUSHOVER_TOKEN}
-#     user-key: ${CUSTOM_PUSHOVER_USER_KEY}
-#     default-alert:
-#       description: health-check failed
-#       send-on-resolved: true
-#       failure-threshold: 5
-#       success-threshold: 2
+alerting:
+  pushover:
+    application-token: ${GATUS_PUSHOVER_TOKEN}
+    user-key: ${PUSHOVER_USER_TOKEN}
+    default-alert:
+      description: health-check failed
+      send-on-resolved: true
+      failure-threshold: 5
+      success-threshold: 2
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -32,8 +32,8 @@ endpoints:
       dns-resolver: tcp://${PIHOLE_LOCAL_DNS_IP}:53
     conditions:
       - "[STATUS] == 200"
-    # alerts:
-    #   - type: pushover
+    alerts:
+      - type: pushover
   - name: flux-webhook
     group: external
     url: https://flux-webhook.${CLOUDFLARE_DOMAIN}
@@ -42,5 +42,5 @@ endpoints:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
       - "[STATUS] == 404"
-    # alerts:
-    #   - type: pushover
+    alerts:
+      - type: pushover

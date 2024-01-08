@@ -5,7 +5,7 @@ route:
   group_by: ["alertname", "job"]
   group_interval: 10m
   group_wait: 1m
-  receiver: email
+  receiver: pushover
   repeat_interval: 12h
   routes:
     - receiver: "null"
@@ -14,7 +14,7 @@ route:
     - receiver: "null"
       matchers:
         - alertname =~ "InfoInhibitor"
-    - receiver: "email"
+    - receiver: "pushover"
       continue: true
       matchers:
         - severity = "critical"
@@ -30,15 +30,13 @@ inhibit_rules:
       - severity = "warning"
 receivers:
   - name: "null"
-  - name: "email"
-    email_configs:
+  - name: "pushover"
+    pushover_configs:
       - send_resolved: true
-        to: "{{ .ALERT_MANAGER_TO_EMAIL }}"
-        from: "{{ .ALERT_MANAGER_FROM_EMAIL }}"
-        smarthost: smtp-relay.default.svc.cluster.local:25
-        hello: "Alert Manager"
-        require_tls: false
-        html: |-
+        html: true
+        priority: |-
+          {{ "{{" }} if eq .Status "firing" {{ "}}" }}1{{ "{{" }} else {{ "}}" }}0{{ "{{" }} end {{ "}}" }}
+        message: |-
           {{ "{{-" }} range .Alerts {{ "}}" }}
             {{ "{{-" }} if ne .Annotations.description "" {{ "}}" }}
               {{ "{{" }} .Annotations.description {{ "}}" }}
@@ -57,3 +55,10 @@ receivers:
               </small>
             {{ "{{-" }} end {{ "}}" }}
           {{ "{{-" }} end {{ "}}" }}
+        title: >-
+          {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
+          [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
+        token: "{{ .ALERT_MANAGER_PUSHOVER_TOKEN }}"
+        url_title: View in Alertmanager
+        user_key: "{{ .PUSHOVER_USER_KEY }}"
+
