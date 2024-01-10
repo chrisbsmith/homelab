@@ -47,7 +47,6 @@ spec:
               NEXT_PUBLIC_EMAIL_PROVIDER: true
               EMAIL_SERVER: smtp-relay.default.svc.cluster.local:25
             envFrom: *envFrom
-            args: ["server", "start"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
