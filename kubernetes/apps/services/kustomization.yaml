@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./atuin/ks.yaml
-  - ./linkwarden/ks.yaml
+  # - ./linkwarden/ks.yaml
