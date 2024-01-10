@@ -27,6 +27,7 @@
     - bootstrap_service_cidr
     - bootstrap_timezone
     - bootstrap_pihole_server
+    - bootstrap_pihole_ip
 
 # - name: Verify bootstrap node names are valid
 #   ansible.builtin.assert:
