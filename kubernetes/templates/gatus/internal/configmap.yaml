@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "${APP}"
         group: internal
-        url: ${PIHOLE_LOCAL_DNS_IP}
+        url: ${SECRET_PIHOLE_IP}
         interval: 1m
         ui:
           hide-hostname: true
