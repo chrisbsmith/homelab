@@ -102,5 +102,5 @@ spec:
       config:
         enabled: true
         type: emptyDir
-        globalMounts:
-          - path: /cache
+        # globalMounts:
+        #   - path: /data
