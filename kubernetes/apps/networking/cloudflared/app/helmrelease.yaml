@@ -52,6 +52,8 @@ spec:
               - /etc/cloudflared/config/config.yaml
               - run
               - "$(TUNNEL_ID)"
+              - --loglevel
+              - debug
             probes:
               liveness: &probes
                 enabled: true
