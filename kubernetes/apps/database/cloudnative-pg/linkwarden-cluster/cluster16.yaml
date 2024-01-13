@@ -12,7 +12,7 @@ spec:
     size: 20Gi
     storageClass: local-path
   superuserSecret:
-    name: cloudnative-pg-secret
+    name: linkwarden-cpng-secret
   enableSuperuserAccess: true
   # Note: Bootstrap is needed when recovering from an existing cnpg cluster
   # bootstrap:
