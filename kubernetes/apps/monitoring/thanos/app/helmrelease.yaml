@@ -39,6 +39,7 @@ spec:
       config:
         insecure: true
     existingObjstoreSecret: thanos-objstore-secret
+    existingObjstoreSecretItems: thanos.yaml
     queryFrontend:
       enabled: true
       replicaCount: 1
@@ -83,7 +84,7 @@ spec:
       retentionResolution1h: 60d
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: local-path
         size: 10Gi
     storegateway:
       enabled: true
@@ -91,7 +92,7 @@ spec:
       config: *config
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: local-path
         size: 10Gi
     ruler:
       enabled: true
@@ -112,7 +113,7 @@ spec:
                   severity: critical
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: local-path
         size: 10Gi
     metrics:
       enabled: true
