@@ -138,16 +138,16 @@ data:
       thanosServiceMonitor:
         enabled: true
       thanosIngress:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-        pathType: Prefix
-        hosts:
-          - &thanosHost thanos-query-frontend.${SECRET_DOMAIN}
-        tls:
-          - hosts:
-            - *thanosHost
+        enabled: false
+        # ingressClassName: internal
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        # pathType: Prefix
+        # hosts:
+        #   - &thanosHost thanos-query-frontend.${SECRET_DOMAIN}
+        # tls:
+        #   - hosts:
+        #     - *thanosHost
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false

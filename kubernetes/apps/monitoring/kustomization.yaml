@@ -10,3 +10,4 @@ resources:
   - ./gatus/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./gatus-external-services/ks.yaml
+  - ./thanos/ks.yaml
