@@ -44,7 +44,7 @@ spec:
               repository: ghcr.io/chrisbsmith/linkwarden
               tag: v2.4.8
             env:
-              NEXT_PUBLIC_EMAIL_PROVIDER: true
+              NEXT_PUBLIC_EMAIL_PROVIDER: false
               EMAIL_SERVER: smtp-relay.default.svc.cluster.local:25
               NEXT_PUBLIC_AUTHELIA_ENABLED: true
               AUTHELIA_WELLKNOWN_URL: "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration"
