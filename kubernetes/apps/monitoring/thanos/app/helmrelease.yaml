@@ -39,7 +39,9 @@ spec:
       config:
         insecure: true
     existingObjstoreSecret: thanos-objstore-secret
-    existingObjstoreSecretItems: thanos.yaml
+    existingObjstoreSecretItems:
+      key: thanos.yaml
+      path: objstore.yml
     queryFrontend:
       enabled: true
       replicaCount: 1
