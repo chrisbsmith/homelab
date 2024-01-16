@@ -115,7 +115,6 @@ spec:
         size: 5Gi
         accessMode: ReadWriteOnce
         retain: true
-
         globalMounts:
-          - path: /data
+          - path: /data/data
             readOnly: false
