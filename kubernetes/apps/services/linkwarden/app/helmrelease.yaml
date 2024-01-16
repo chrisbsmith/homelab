@@ -113,6 +113,9 @@ spec:
         type: persistentVolumeClaim
         storageClass: local-path
         size: 5Gi
+        accessMode: ReadWriteOnce
+        retain: true
+
         globalMounts:
           - path: /data
             readOnly: false
