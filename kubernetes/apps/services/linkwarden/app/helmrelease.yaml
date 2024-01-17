@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: ghcr.io/chrisbsmith/linkwarden
-              tag: v2.4.8
+              tag: v2.4.8-1
             env:
               NEXT_PUBLIC_EMAIL_PROVIDER: false
               EMAIL_SERVER: smtp-relay.default.svc.cluster.local:25
@@ -61,7 +61,7 @@ spec:
                 memory: 128Mi
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
         pod:
           securityContext:
             runAsUser: 568
