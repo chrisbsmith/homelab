@@ -3,8 +3,14 @@ name: "Link Check"
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: [".github/workflows/link-check.yaml"]
   schedule:
     - cron: "0 0 * * 0"
+
+env:
+  WORKFLOW_ISSUE_TITLE: "Link Checker Dashboard 🔗"
 
 jobs:
   link-check:
@@ -20,19 +26,30 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Print Output
+        run: cat ./lychee/out.md
+
       - name: Find Link Checker Issue
-        id: link-checker-issue
-        uses: micalevisk/last-issue-action@0d40124cc99ac8601c2516007f0c98ef3d27537b # v2.3.0
-        with:
-          state: open
-          labels: |
-            broken-links
+        id: find-issue
+        shell: bash
+        env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          issue_number=$( \
+              gh issue list \
+                  --search "in:title ${{ env.WORKFLOW_ISSUE_TITLE }}" \
+                  --state open \
+                  --json number \
+                  | jq --raw-output '.[0].number' \
+          )
+          echo "issue-number=${issue_number}" >> $GITHUB_OUTPUT
+          echo "${issue_number}"
 
       - name: Update Issue
         uses: peter-evans/create-issue-from-file@433e51abf769039ee20ba1293a088ca19d573b7f # v4.0.1
         with:
           title: Broken links detected 🔗
-          issue-number: "${{ steps.link-checker-issue.outputs.issue-number }}"
+          issue-number: "${{ steps.find-issue.outputs.issue-number }}"
           content-filepath: ./lychee/out.md
           token: "${{ secrets.GITHUB_TOKEN }}"
           labels: |
