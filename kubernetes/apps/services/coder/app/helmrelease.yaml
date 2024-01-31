@@ -40,7 +40,7 @@ spec:
 
       envFrom:
         - secretRef:
-          name: coder-secret
+            name: coder-secret
 
       ingress:
         enable: true
