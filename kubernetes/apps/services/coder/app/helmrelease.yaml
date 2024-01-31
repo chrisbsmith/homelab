@@ -24,28 +24,29 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/onedr0p/postgres-init:16
-        envFrom: &envFrom
-          - secretRef:
-              name: coder-secret
+    coder:
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16
+          envFrom: &envFrom
+            - secretRef:
+                name: coder-secret
 
-    env:
-      - name: CODER_ACCESS_URL
-        value: "https://coder.${SECRET_DOMAIN}"
-      - name: CODER_OIDC_CLIENT_ID
-        value: "coder"
+      env:
+        - name: CODER_ACCESS_URL
+          value: "https://coder.${SECRET_DOMAIN}"
+        - name: CODER_OIDC_CLIENT_ID
+          value: "coder"
 
-    ingress:
-      enabled: true
-      annotations:
-        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-      hosts:
-        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-      ingressClassName: internal
-      tls:
-        - hosts:
-          - *host
+      ingress:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+        ingressClassName: internal
+        tls:
+          - hosts:
+            - *host
