@@ -46,11 +46,7 @@ spec:
         enable: true
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-        ingressClassName: internal
+        host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        className: internal
         tls:
-          - hosts:
-            - *host
+          enable: true
