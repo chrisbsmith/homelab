@@ -30,6 +30,21 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-chmod-data:
+          order: 1
+          image:
+            repository: busybox
+            tag: latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /home/coder
+          securityContext:
+            runAsUser: 0
+
         containers:
           main:
             image:
