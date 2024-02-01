@@ -6,3 +6,4 @@ resources:
   - ./atuin/ks.yaml
   - ./linkwarden/ks.yaml
   - ./coder/ks.yaml
+  - ./code-server/ks.yaml
