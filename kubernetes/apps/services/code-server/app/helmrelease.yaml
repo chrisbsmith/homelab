@@ -41,7 +41,7 @@ spec:
               - sh
               - -c
               - |
-                chown -R 568:568 /home/coder
+                chown -R 568:568 /config
             securityContext:
               runAsUser: 0
               allowPrivilegeEscalation: true
@@ -49,11 +49,13 @@ spec:
         containers:
           main:
             image:
-              repository: codercom/code-server
-              tag: 4.20.1
+              repository: ghcr.io/linuxserver/code-server
+              tag: 4.21.0
             env:
               PUID: 568
               GUID: 568
+              PROXY_DOMAIN: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              DEFAULT_WORKSPACE: /config/workspace
             envFrom: &envFrom
               - secretRef:
                   name: code-server-secret
@@ -92,7 +94,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 service:
@@ -110,5 +112,5 @@ spec:
         accessMode: ReadWriteOnce
         retain: true
         globalMounts:
-          - path: /home/coder
+          - path: /config
             readOnly: false
