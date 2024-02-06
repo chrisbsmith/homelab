@@ -52,8 +52,8 @@ spec:
               repository: codercom/code-server
               tag: 4.20.1
             env:
-              - PUID: 568
-              - GUID: 568
+              PUID: 568
+              GUID: 568
             envFrom: &envFrom
               - secretRef:
                   name: code-server-secret
