@@ -50,7 +50,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/code-server
-              tag: 4.21.0
+              tag: 4.21.1
             env:
               PUID: 568
               GUID: 568
