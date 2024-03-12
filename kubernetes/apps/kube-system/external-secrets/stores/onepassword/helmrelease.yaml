@@ -119,13 +119,13 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
     service:
-      app:
+      api:
         controller: onepassword-connect
         ports:
           http:
             port: *apiPort
     ingress:
-      app:
+      api:
         enabled: true
         className: internal
         hosts:
