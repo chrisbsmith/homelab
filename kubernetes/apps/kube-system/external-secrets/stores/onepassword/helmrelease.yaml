@@ -66,10 +66,13 @@ spec:
                   initialDelaySeconds: 15
               startup:
                 enabled: false
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources: &resources
               requests:
                 cpu: 10m
-                memory: 128M
               limits:
                 memory: 256M
           sync:
@@ -107,7 +110,8 @@ spec:
                   initialDelaySeconds: 15
               startup:
                 enabled: false
-              resources: *resources
+            resources: *resources
+            securityContext: *securityContext
         pod:
           securityContext:
             runAsUser: 999
@@ -115,7 +119,7 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      app:
+      ap:
         enabled: true
         className: internal
         hosts:
