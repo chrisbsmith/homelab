@@ -42,7 +42,6 @@ spec:
                   name: lldap-secret
         containers:
           app:
-            controller: lldap
             image:
               repository: ghcr.io/lldap/lldap
               tag: v0.5.0
