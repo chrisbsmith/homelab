@@ -71,8 +71,13 @@ spec:
     serviceMonitor:
       app:
         serviceName: linkwarden
-        enabled: false
-
+        enabled: true
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       app:
         enabled: true
