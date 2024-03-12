@@ -98,13 +98,13 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: autin
+                  identifier: app
                   port: http
           - host: &customHost "sh.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: autin
+                  identifier: app
                   port: http
         tls:
           - hosts:

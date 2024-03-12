@@ -78,7 +78,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: echo-server
+                  identifier: app
                   port: http
         tls:
           - hosts:

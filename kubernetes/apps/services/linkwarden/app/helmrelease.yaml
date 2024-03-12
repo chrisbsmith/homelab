@@ -84,13 +84,13 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: linkwarden
+                  identifier: app
                   port: http
           - host: &customHost "bookmarks.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: linkwarden
+                  identifier: app
                   port: http
         tls:
           - hosts:
