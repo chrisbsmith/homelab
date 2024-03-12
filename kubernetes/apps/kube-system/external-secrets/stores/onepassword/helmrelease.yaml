@@ -118,8 +118,14 @@ spec:
             runAsGroup: 999
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: onepassword-connect
+        ports:
+          http:
+            port: *apiPort
     ingress:
-      ap:
+      app:
         enabled: true
         className: internal
         hosts:
@@ -138,9 +144,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: *configDir
-    service:
-      app:
-        controller: onepassword-connect
-        ports:
-          http:
-            port: *apiPort
