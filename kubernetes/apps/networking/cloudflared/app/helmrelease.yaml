@@ -25,13 +25,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      cloudflared:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/cloudflare/cloudflared
               tag: 2024.2.1
@@ -78,12 +78,14 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      main:
+      app:
+        controller: cloudflared
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
+        serviceName: cloudflared
         enabled: true
     persistence:
       config:

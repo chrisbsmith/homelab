@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      code-server:
         replicas: 1
         strategy: RollingUpdate
         annotations:
@@ -47,7 +47,7 @@ spec:
               allowPrivilegeEscalation: true
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/linuxserver/code-server
               tag: 4.22.0
@@ -78,17 +78,19 @@ spec:
         #   securityContext:
 
     service:
-      main:
+      app:
+        controller: code-server
         ports:
           http:
             port: &port 8080
 
     serviceMonitor:
-      main:
+      app:
+        serviceName: code-server
         enabled: false
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -98,7 +100,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: code-server
                   port: http
         tls:
           - hosts:

@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      lldap:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -41,7 +41,8 @@ spec:
               - secretRef:
                   name: lldap-secret
         containers:
-          main:
+          app:
+            controller: lldap
             image:
               repository: ghcr.io/lldap/lldap
               tag: v0.5.0
@@ -66,14 +67,15 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: lldap
         ports:
           http:
             port: *port
           ldap:
             port: *ldapPort
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:
@@ -81,7 +83,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: lldap
                   port: http
         tls:
           - hosts:

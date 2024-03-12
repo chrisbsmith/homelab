@@ -25,21 +25,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      linkwarden:
         replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
-        #   init-db:
-        #     image:
-        #       repository: ghcr.io/onedr0p/postgres-init
-        #       tag: 16
-        #     envFrom: &envFrom
-        #       - secretRef:
-        #           name: linkwarden-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/chrisbsmith/linkwarden
               tag: v2.4.8-2
@@ -70,17 +62,19 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: linkwarden
         ports:
           http:
             port: &port 3000
 
     serviceMonitor:
-      main:
+      app:
+        serviceName: linkwarden
         enabled: false
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -90,13 +84,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: linkwarden
                   port: http
           - host: &customHost "bookmarks.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: linkwarden
                   port: http
         tls:
           - hosts:

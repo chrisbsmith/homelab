@@ -25,11 +25,11 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      echo-server:
         replicas: 2
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: docker.io/jmalloc/echo-server
               tag: 0.3.6
@@ -61,12 +61,13 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      main:
+      app:
+        controller: echo-server
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -77,7 +78,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: echo-server
                   port: http
         tls:
           - hosts:
