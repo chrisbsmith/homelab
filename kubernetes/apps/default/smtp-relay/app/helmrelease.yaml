@@ -33,7 +33,6 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           app:
-            controller: smtp-relay
             image:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.1
