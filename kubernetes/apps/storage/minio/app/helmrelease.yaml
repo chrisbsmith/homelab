@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,26 +32,26 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
       supplementalGroups: [100]
     controllers:
-      main:
+      minio:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          nfs-fixer:
-            image:
-              repository: alpine
-              tag: 3.19
-              pullPolicy: IfNotPresent
-            securityContext:
-              runAsUser: 0
-            volumeMounts:
-              - name: nfs-test
-                mountPath: /data
-            command:
-              - sh
-              - -c
-              - (chmod 0775 /data; chgrp 568 /data)
+        # initContainers:
+        #   nfs-fixer:
+        #     image:
+        #       repository: alpine
+        #       tag: 3.19
+        #       pullPolicy: IfNotPresent
+        #     securityContext:
+        #       runAsUser: 0
+        #     volumeMounts:
+        #       - name: nfs-test
+        #         mountPath: /data
+        #     command:
+        #       - sh
+        #       - -c
+        #       - (chmod 0775 /data; chgrp 568 /data)
         containers:
-          main:
+          app:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2023-12-09T18-17-51Z@sha256:a9cec9ed5bda5b4e1b2153823e01b309965b9de7ed6eb7f098d45592eecdfc78
@@ -90,14 +90,16 @@ spec:
               runAsUser: 568
               runAsGroup: 568
     service:
-      main:
+      app:
+        controller: minio
         ports:
           http:
             port: 9001
           s3:
             port: 9000
     serviceMonitor:
-      main:
+      app:
+        serviceName: minio
         enabled: true
         endpoints:
           - port: s3
@@ -106,7 +108,7 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -116,13 +118,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &s3Host s3.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: s3
         tls:
           - hosts:
