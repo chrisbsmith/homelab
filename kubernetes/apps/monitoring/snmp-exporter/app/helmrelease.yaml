@@ -106,6 +106,7 @@ spec:
     serviceMonitor:
       app:
         serviceName: snmp-exporter
+        enabled: true
         endpoints:
           - port: http
             scheme: http
