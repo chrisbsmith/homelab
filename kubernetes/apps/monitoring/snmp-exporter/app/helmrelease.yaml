@@ -103,16 +103,17 @@ spec:
         ports:
           http:
             port: *port
-    serviceMonitor:
-      app:
-        enabled: true
-        endpoints:
-          - interval: 1m
-            path: /metrics
-            port: http
-            scheme: http
-            scrapeTimeout: 10s
-        serviceName: snmp-exporter
+    #### ServiceMonitior configs are pulled from 1Password
+    # serviceMonitor:
+    #   app:
+    #     enabled: true
+    #     endpoints:
+    #       - interval: 1m
+    #         path: /metrics
+    #         port: http
+    #         scheme: http
+    #         scrapeTimeout: 10s
+    #     serviceName: snmp-exporter
     persistence:
       config:
         enabled: true
