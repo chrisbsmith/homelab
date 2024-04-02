@@ -34,7 +34,7 @@ spec:
             image:
               repository: docker.io/glauth/glauth
               tag: v2.3.2@sha256:5112abbb2b5145dadb1a2fed57242ad3718e4af11062d0bb812b50cda6c708ab
-            command: ["/app/glauth", "-c", "/config"]
+            command: ["/app/glauth", "-c", "/config/config.toml"]
             probes:
               liveness: &probes
                 enabled: true
@@ -107,12 +107,12 @@ spec:
         type: secret
         name: glauth-secret
         globalMounts:
-          - path: /config/groups.toml
-            subPath: groups.toml
+          - path: /config/config.toml
+            subPath: config.toml
             readOnly: true
-          - path: /config/server.toml
-            subPath: server.toml
-            readOnly: true
-          - path: /config/users.toml
-            subPath: users.toml
-            readOnly: true
+          # - path: /config/server.toml
+          #   subPath: server.toml
+          #   readOnly: true
+          # - path: /config/users.toml
+          #   subPath: users.toml
+          #   readOnly: true
