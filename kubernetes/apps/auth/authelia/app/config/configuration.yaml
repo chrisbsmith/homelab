@@ -16,7 +16,7 @@ authentication_backend:
     password: password
     attributes:
       username: uid
-      display_name: displayName
+      display_name: givenName
       mail: mail
       member_of: memberOf
       group_name: cn
