@@ -4,7 +4,7 @@ authentication_backend:
     disable: true
   refresh_interval: 1m
   ldap:
-    address: ldap://lldap.auth.svc.cluster.local:389
+    address: ldap://glauth.auth.svc.cluster.local:389
     implementation: custom
     timeout: 5s
     start_tls: false
