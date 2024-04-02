@@ -20,9 +20,7 @@ authentication_backend:
       mail: mail
       member_of: memberOf
       group_name: cn
-  password_reset:
-    disable: true
-  refresh_interval: 1m
+
 
 session:
   name: ${AUTHELIA_SESSION_NAME}
