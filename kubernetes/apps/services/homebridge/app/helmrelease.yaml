@@ -77,11 +77,7 @@ spec:
     persistence:
       homebridge:
         enabled: true
-        retain: true
-        type: persistentVolumeClaim
-        storageClass: synology-csi-retain
-        accessMode: ReadWriteOnce
-        size: 1Gi
+        existingClaim: homebridge
 
     ingress:
       app:
