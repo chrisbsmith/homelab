@@ -25,7 +25,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      homebridge:
+        replicas: 1
+        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -39,7 +41,7 @@ spec:
               PGID: 1000
               PUID: 1000
               HOMEBRIDGE_CONFIG_UI: 1
-             HOMEBRIDGE_CONFIG_UI_PORT: &port 8888
+              HOMEBRIDGE_CONFIG_UI_PORT: &port 8888
             # securityContext:
             #   allowPrivilegeEscalation: false
             #   capabilities:
