@@ -61,7 +61,7 @@ spec:
         controller: main
         ports:
           http:
-            port: &port
+            port: *port
       bridge:
         enabled: true
         controller: main
