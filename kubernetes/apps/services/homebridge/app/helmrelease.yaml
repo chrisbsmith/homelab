@@ -58,13 +58,13 @@ spec:
         #       type: RuntimeDefault
     service:
       app:
-        controller: main
+        controller: homebridge
         ports:
           http:
             port: *port
       bridge:
         enabled: true
-        controller: main
+        controller: homebridge
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 10.20.0.157
