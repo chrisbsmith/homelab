@@ -26,6 +26,8 @@ spec:
   values:
     controllers:
       homebridge:
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
         replicas: 1
         strategy: RollingUpdate
         annotations:
