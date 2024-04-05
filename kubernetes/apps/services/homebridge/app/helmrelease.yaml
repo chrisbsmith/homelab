@@ -15,9 +15,9 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  # install:
-  #   crds: Create
-  #   replace: true
+  install:
+    crds: Create
+    replace: true
   upgrade:
     cleanupOnFail: true
     crds: CreateReplace
