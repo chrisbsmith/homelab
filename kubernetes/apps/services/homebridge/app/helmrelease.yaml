@@ -24,10 +24,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
     controllers:
       homebridge:
-        hostNetwork: true
-        dnsPolicy: ClusterFirstWithHostNet
         replicas: 1
         strategy: RollingUpdate
         annotations:
