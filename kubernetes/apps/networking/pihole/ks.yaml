@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app pihole
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: nginx-internal
+  path: ./kubernetes/apps/networking/pihole/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: pihole
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
