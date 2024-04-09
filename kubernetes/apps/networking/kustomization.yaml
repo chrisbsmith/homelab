@@ -8,3 +8,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./nginx/ks.yaml
   - ./pihole/ks.yaml
+  - ./orbital-sync/ks.yaml
