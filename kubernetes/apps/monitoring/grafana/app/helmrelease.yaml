@@ -100,6 +100,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
+          - name: pihole
+            orgId: 1
+            folder: PiHole
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/pihole
           - name: nginx
             orgId: 1
             folder: Nginx
