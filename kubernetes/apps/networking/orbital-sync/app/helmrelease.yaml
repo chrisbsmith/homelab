@@ -32,7 +32,7 @@ spec:
         containers:
           app:
             image:
-              repository: FROM ghcr.io/mattwebbio/orbital-sync
+              repository: ghcr.io/mattwebbio/orbital-sync
               tag: 1.8.0
             env:
               INTERVAL_MINUTES: 5
