@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./servicemonitor.yaml
   - ../../../../templates/gatus/internal
