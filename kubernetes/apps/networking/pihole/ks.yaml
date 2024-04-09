@@ -10,13 +10,13 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: nginx-internal
+    - name: external-secrets-stores
   path: ./kubernetes/apps/networking/pihole/app
   prune: true
   sourceRef:
     kind: GitRepository
-    name: pihole
-  wait: false
+    name: home-kubernetes
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
