@@ -55,9 +55,6 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: 10.20.0.158
         io.cilium/lb-ipam-sharing-key: 8675309
-    serviceWeb:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
     virtualHost: "pihole-k8s.${SECRET_DOMAIN}"
     ingress:
       enabled: true
