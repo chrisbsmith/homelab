@@ -100,6 +100,15 @@ spec:
         size: 10Gi
       networkPolicy:
         enabled: false
+      resources:
+        limits:
+          cpu: 150m
+          ephemeral-storage: 1Gi
+          memory: 320Mi
+        requests:
+          cpu: 100m
+          ephemeral-storage: 50Mi
+          memory: 128Mi
     storegateway:
       enabled: true
       replicaCount: 1
