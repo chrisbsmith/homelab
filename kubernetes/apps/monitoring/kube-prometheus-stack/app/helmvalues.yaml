@@ -166,7 +166,7 @@ data:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.35.0
+          image: quay.io/thanos/thanos:v0.35.1
           objectStorageConfig:
             existingSecret:
               name: thanos-objstore-secret
