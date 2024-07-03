@@ -12,6 +12,16 @@
       ]
     },
     {
+      "description": "Custom versioning for homebridge",
+      "matchDatasources": [
+        "docker"
+      ],
+      "versioning": "loose",
+      "matchPackageNames": [
+        "ghcr.io/homebridge/homebridge"
+      ]
+    },
+    {
       "description": "Custom versioning for k3s",
       "matchDatasources": [
         "github-releases"
