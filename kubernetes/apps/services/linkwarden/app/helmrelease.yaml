@@ -33,7 +33,7 @@ spec:
         containers:
           app:
             image:
-              repository: linkwarden/linkwarden
+              repository: ghcr.io/linkwarden/linkwarden
               tag: v2.7.1
             env:
               NEXT_PUBLIC_EMAIL_PROVIDER: false
