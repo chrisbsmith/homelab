@@ -68,19 +68,7 @@ spec:
         controller: airtrail
         ports:
           http:
-            port: *port
-          metrics:
-            port: *metricsPort
-    serviceMonitor:
-      app:
-        serviceName: airtrail
-        enabled: true
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+            port: 3000
     ingress:
       app:
         enabled: true
