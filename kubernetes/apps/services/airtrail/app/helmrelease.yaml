@@ -44,7 +44,7 @@ spec:
               repository: docker.io/johly/airtrail
               tag: v0.2.0
             env:
-              ORIGIN: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              ORIGIN: &host "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
