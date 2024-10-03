@@ -89,3 +89,5 @@ spec:
       config:
         enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /tmp
