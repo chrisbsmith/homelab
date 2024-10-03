@@ -44,7 +44,7 @@ spec:
               repository: docker.io/johly/airtrail
               tag: v0.2.0
             env:
-              ORIGIN: &host "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
@@ -76,7 +76,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         hosts:
-          - host: *host
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
