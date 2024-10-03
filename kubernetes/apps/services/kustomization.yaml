@@ -7,3 +7,4 @@ resources:
   - ./linkwarden/ks.yaml
   - ./coder/ks.yaml
   - ./homebridge/ks.yaml
+  - ./airtrail/ks.yaml
