@@ -72,5 +72,5 @@ spec:
       accessModes:
         - ReadWriteMany
       size: "10G"
-      storageClass: "synology-csi-retain"
+      storageClass: "synology-csi-iscsi-retain"
     replicaCount: 1
