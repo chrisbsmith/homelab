@@ -43,9 +43,6 @@ spec:
               pullPolicy: IfNotPresent
             securityContext:
               runAsUser: 0
-            volumeMounts:
-              - name: nfs-test
-                mountPath: /data
             command:
               - sh
               - -c
