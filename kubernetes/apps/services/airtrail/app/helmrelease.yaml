@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: docker.io/johly/airtrail
-              tag: v0.3.2
+              tag: v1.1.0
             env:
               ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN}:443"
             envFrom: *envFrom
