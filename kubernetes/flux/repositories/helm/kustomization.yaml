@@ -24,4 +24,5 @@ resources:
   - ./weave-gitops.yaml
   - ./coder.yaml
   - ./pihole.yaml
+  - ./headlamp.yaml
 

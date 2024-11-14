@@ -11,3 +11,4 @@ resources:
   - ./snapshot-controller/ks.yaml
   - ./external-secrets/ks.yaml
   - ./synology-csi/ks.yaml
+  - ./headlamp/ks.yaml
