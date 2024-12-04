@@ -8,3 +8,4 @@ resources:
   - ./coder/ks.yaml
   - ./homebridge/ks.yaml
   - ./airtrail/ks.yaml
+  - ./sshwifty/ks.yaml
