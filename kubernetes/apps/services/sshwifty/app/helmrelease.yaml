@@ -32,7 +32,6 @@ spec:
               tag: latest
             env:
               TZ: "America/New_York"
-              SSHWIFTY_HOSTNAME: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             probes:
               liveness:
                 enabled: true
