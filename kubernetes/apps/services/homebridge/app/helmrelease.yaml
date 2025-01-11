@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/homebridge/homebridge
-              tag: 2024-12-19@sha256:abc031403ba8e288c612abd0fc5e06928826fd2ab3da074337a57483484d1982
+              tag: 2025-01-11@sha256:a6bf2c3bff3275265cf223d33f15f44ea610a27cc3ad20587fd920d059a7dcf0
             env:
               TZ: America/New_York
               ENABLE_AVAHI: "1"
