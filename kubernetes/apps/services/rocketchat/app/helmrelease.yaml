@@ -46,6 +46,9 @@ spec:
       enabled: true
       storageClass: synology-csi-iscsi-retain
 
+    smtp:
+      existingSecret: rocketchat-secret
+
     resources:
       requests:
         memory: 512Mi
