@@ -25,4 +25,5 @@ resources:
   - ./coder.yaml
   - ./pihole.yaml
   - ./headlamp.yaml
+  - ./rocketchat.yaml
 
