@@ -29,8 +29,10 @@ spec:
 
     host: &host chat.${SECRET_DOMAIN}
 
+    # disable mongodb for testing because the rocketchat chart does
+    # not support auth.existingSecret
     mongodb:
-      enabled: true
+      enabled: false
       persistence:
         enabled: true
         storageClass: synology-csi-iscsi-retain
