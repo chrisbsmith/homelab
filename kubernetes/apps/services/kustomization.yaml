@@ -9,3 +9,4 @@ resources:
   - ./homebridge/ks.yaml
   - ./airtrail/ks.yaml
   - ./sshwifty/ks.yaml
+  - ./rocketchat/ks.yaml
