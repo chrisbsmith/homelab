@@ -32,6 +32,7 @@ spec:
     # not support auth.existingSecret
 
     existingMongodbSecret: rocketchat-secret
+    extraSecret: rocketchat-secret
 
     mongodb:
       enabled: true
