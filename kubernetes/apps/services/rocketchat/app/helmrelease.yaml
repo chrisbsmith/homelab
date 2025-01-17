@@ -8,10 +8,9 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: rocketchat
-      version: 6.23.2
+      chart: ./rocketchat
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: rocketchat
         namespace: flux-system
   install:
@@ -31,8 +30,11 @@ spec:
 
     # disable mongodb for testing because the rocketchat chart does
     # not support auth.existingSecret
+
+    existingMongodbSecret: rocketchat-secret
+
     mongodb:
-      enabled: false
+      enabled: true
       persistence:
         enabled: true
         storageClass: synology-csi-iscsi-retain
