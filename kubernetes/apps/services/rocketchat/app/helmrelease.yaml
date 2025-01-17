@@ -29,10 +29,6 @@ spec:
 
     host: &host chat.${SECRET_DOMAIN}
 
-    smtp:
-      host: smtp-relay.default.svc.cluster.local
-      port: 25
-
     mongodb:
       enabled: true
       persistence:
