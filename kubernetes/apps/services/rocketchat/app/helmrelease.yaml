@@ -38,8 +38,8 @@ spec:
         existingSecret: rocketchat-secret
 
     persistence:
-      enabled:
-        storageClass: synology-csi-iscsi-retain
+      enabled: true
+      storageClass: synology-csi-iscsi-retain
 
     resources:
       requests:
