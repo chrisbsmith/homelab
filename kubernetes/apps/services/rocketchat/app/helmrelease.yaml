@@ -24,7 +24,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image: 6.13.0
+    image:
+      tag: 6.13.0
 
     host: &host chat.${SECRET_DOMAIN}
 
