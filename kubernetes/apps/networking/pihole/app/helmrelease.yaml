@@ -68,9 +68,5 @@ spec:
         - hosts:
             - *host
     persistentVolumeClaim:
-      enabled: true
-      accessModes:
-        - ReadWriteMany
-      size: "10G"
-      storageClass: "synology-csi-iscsi-retain"
+      enabled: false
     replicaCount: 1
