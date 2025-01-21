@@ -30,6 +30,9 @@ spec:
     - name: redis
       namespace: database
   values:
+    global:
+      security:
+        allowInsecureImages: true
     image:
       registry: quay.io
       repository: thanos/thanos
