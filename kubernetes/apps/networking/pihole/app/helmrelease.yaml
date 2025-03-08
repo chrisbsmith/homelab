@@ -25,8 +25,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-		extraEnvVars:
-			FTLCONF_misc_dnsmasq_lines: no-0x20-encode
+    extraEnvVars:
+      FTLCONF_misc_dnsmasq_lines: no-0x20-encode
     monitoring:
       podMonitor:
         enabled: true
