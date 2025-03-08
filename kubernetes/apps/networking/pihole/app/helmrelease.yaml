@@ -72,3 +72,10 @@ spec:
     persistentVolumeClaim:
       enabled: false
     replicaCount: 1
+    probes:
+      liveness:
+        port: http
+        scheme: HTTP
+      readiness:
+        port: http
+        scheme: HTTP
