@@ -39,7 +39,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: external-dns-pihole-secret
-                key: external-dns-pihole-secret
+                key: pihole-password
           - name: PIHOLE_SERVER
             valueFrom:
               secretKeyRef:
