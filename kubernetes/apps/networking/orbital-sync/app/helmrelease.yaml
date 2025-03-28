@@ -36,6 +36,10 @@ spec:
               tag: master
             env:
               INTERVAL_MINUTES: 5
+              SYNC_V6_CONFIG: true
+              SYNC_V6_ADLIST: true
+              SYNC_V6_DOMAINLIST: true
+              SYNC_V6_CLIENT: true
             envFrom: &envFrom
               - secretRef:
                   name: orbital-sync-secret
