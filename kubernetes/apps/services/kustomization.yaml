@@ -8,4 +8,3 @@ resources:
   - ./coder/ks.yaml
   - ./homebridge/ks.yaml
   - ./sshwifty/ks.yaml
-  - ./rocketchat/ks.yaml
