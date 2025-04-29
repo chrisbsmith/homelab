@@ -28,37 +28,20 @@ spec:
     sources: ["service", "ingress"]
     registry: noop
     policy: upsert-only
-    provider:
-      name: webhook
-      webhook:
-        image:
-          repository: ghcr.io/tarantini-io/external-dns-pihole-webhook
-          tag: v1.0.0
-        env:
-          - name: PIHOLE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: external-dns-pihole-secret
-                key: pihole-password
-          - name: PIHOLE_SERVER
-            valueFrom:
-              secretKeyRef:
-                name: external-dns-pihole-secret
-                key: pihole-server
-          - name: LOG_LEVEL
-            value: info
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: http-webhook
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: http-webhook
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
+    provider: pihole
+    env:
+      - name: EXTERNAL_DNS_PIHOLE_API_VERSION
+        value: 6
+      - name: EXTERNAL_DNS_PIHOLE_SERVER
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-pihole-secret
+            key: pihole-server
+      - name: EXTERNAL_DNS_PIHOLE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-pihole-secret
+            key: pihole-password
     extraArgs:
       - --ingress-class=internal
     serviceMonitor:
