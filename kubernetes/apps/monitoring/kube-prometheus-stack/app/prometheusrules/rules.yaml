@@ -31,14 +31,14 @@ spec:
         - alert: CPUHighOnNAS
           annotations:
             summary: The CPU for the NAS at {{ $labels.instance }} has been running high for 3 minutes.
-          expr: ssCpuIdle < 85
+          expr: ssCpuIdle < 60
           for: 3m
           labels:
             severity: warning
         - alert: CPUHighOnNAS
           annotations:
             summary: The CPU for the NAS at {{ $labels.instance }} has been running high for longer than 10 minutes.
-          expr: ssCpuIdle < 85
+          expr: ssCpuIdle < 60
           for: 10m
           labels:
             severity: critical
