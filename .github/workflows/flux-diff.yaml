@@ -25,7 +25,7 @@ jobs:
 
       - name: Get Changed Files
         id: changed-files
-        uses: step-security/changed-files@52f756978519f427e38a119d8c4f0c8f549d1402
+        uses: step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94
         with:
           files: kubernetes/**
           dir_names: true
