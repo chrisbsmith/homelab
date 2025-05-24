@@ -110,7 +110,7 @@ spec:
       data:
         enabled: true
         type: persistentVolumeClaim
-        existingName: linkwarden-data
+        existingClaim: linkwarden-data
         storageClass: local-path
         size: 5Gi
         accessMode: ReadWriteOnce
