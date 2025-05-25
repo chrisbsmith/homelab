@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.3
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -110,10 +110,7 @@ spec:
       data:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: local-path
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        retain: true
+        existingClaim: linkwarden-data
         globalMounts:
           - path: /data/data
             readOnly: false
