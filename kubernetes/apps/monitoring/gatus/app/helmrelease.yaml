@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name gatus
+  name: gatus
 spec:
   interval: 30m
   chart:
@@ -84,7 +84,7 @@ spec:
             resources: *configSyncResources
         
         serviceAccount:
-          identifier: *name
+          identifier: gatus
 
         pod:
           securityContext:
@@ -95,13 +95,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *name
+        controller: gatus
         ports:
           http:
             port: *port
     serviceMonitor:
       main:
-        serviceName: *name
+        serviceName: gatus
         enabled: true
         endpoints:
           - port: metrics
@@ -132,6 +132,21 @@ spec:
           - hosts:
               - *host
               - *customHost
+    rbac:
+      roles:
+        gatus:
+          type: Role
+          rules:
+            - apiGroups: [""]
+              resources: ["configmaps", "secrets"]
+              verbs: ["get", "watch", "list"]
+      bindings:
+        gatus:
+          type: RoleBinding
+          roleRef:
+            identifier: gatus
+          subjects:
+            - identifier: gatus
     serviceAccount:
       gatus:
         enabled: true
