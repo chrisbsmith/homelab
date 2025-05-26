@@ -82,8 +82,9 @@ spec:
               METHOD: WATCH
             securityContext: *securityContext
             resources: *configSyncResources
-          serviceAccount:
-            identifier: *name
+        
+        serviceAccount:
+          identifier: *name
 
         pod:
           securityContext:
@@ -133,7 +134,7 @@ spec:
               - *customHost
     serviceAccount:
       gatus:
-        create: true
+        enabled: true
     persistence:
       config:
         enabled: true
