@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *app
     sources: ["service", "ingress"]
+    image:
+      tag: v0.17.0
     registry: noop
     policy: upsert-only
     provider: pihole
