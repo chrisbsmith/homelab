@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/auth/glauth/app
-  components:
-    - ../../../../components/gatus/internal
   prune: true
   sourceRef:
     kind: GitRepository

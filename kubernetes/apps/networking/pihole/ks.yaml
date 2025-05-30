@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/networking/pihole/app
-  components:
-    - ../../../../components/gatus/internal
   prune: true
   sourceRef:
     kind: GitRepository
