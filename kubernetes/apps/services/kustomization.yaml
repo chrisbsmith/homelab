@@ -1,8 +1,10 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: services
+components:
+  - ../../components/namespace
 resources:
-  - ./namespace.yaml
   - ./atuin/ks.yaml
   - ./coder/ks.yaml
   - ./homebridge/ks.yaml

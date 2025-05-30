@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/kube-system/headlamp/app
+  components:
+    - ../../../../components/gatus/internal
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository
@@ -18,3 +20,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
