@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: synology-csi
   path: ./kubernetes/apps/storage/minio/app
+  components:
+    - ../../../../components/gatus/internal
   prune: true
   sourceRef:
     kind: GitRepository
