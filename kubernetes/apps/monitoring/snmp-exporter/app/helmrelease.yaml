@@ -102,7 +102,7 @@ spec:
         controller: snmp-exporter
         ports:
           http:
-            port: *port
+            port: 9116
     #### ServiceMonitior configs are pulled from 1Password
     # serviceMonitor:
     #   app:
