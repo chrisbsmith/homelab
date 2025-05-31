@@ -65,7 +65,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /healthy
                     port: &port 9116
                   initialDelaySeconds: 0
                   periodSeconds: 10
