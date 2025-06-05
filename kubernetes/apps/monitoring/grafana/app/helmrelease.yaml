@@ -290,6 +290,9 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
+    initChownData:
+      securityContext:
+        capabilities: {}
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
