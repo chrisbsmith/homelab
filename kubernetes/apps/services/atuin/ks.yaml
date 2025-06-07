@@ -16,6 +16,11 @@ spec:
   path: ./kubernetes/apps/services/atuin/app
   components:
     - ../../../../components/gatus/internal
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
