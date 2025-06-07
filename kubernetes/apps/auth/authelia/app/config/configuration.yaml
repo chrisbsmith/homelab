@@ -50,7 +50,7 @@ notifier:
     disable_require_tls: true
 
 totp:
-  disable: false
+  disable: true
   issuer: ${DOMAIN}
 
 webauthn:
