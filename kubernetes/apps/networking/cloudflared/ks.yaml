@@ -5,13 +5,18 @@ metadata:
   name: &app cloudflared
   namespace: flux-system
 spec:
-  targetNamespace: networking
+  targetNamespace: &namespace networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-dns-cloudflare
   path: ./kubernetes/apps/networking/cloudflared/app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

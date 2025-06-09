@@ -6,11 +6,16 @@ metadata:
   name: &app unpoller
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
+  targetNamespace: &namespace monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/monitoring/unpoller/app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,4 +5,5 @@ resources:
   - ./nfs-claim.yaml
   - ./helmrelease.yaml
   - ./externalsecret.yaml
-  - ../../../../templates/gatus/internal
+components:
+  - ../../../../components/gatus/internal
