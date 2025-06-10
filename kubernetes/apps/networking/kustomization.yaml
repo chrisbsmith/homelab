@@ -10,4 +10,4 @@ resources:
   - ./pihole/ks.yaml
   - ./orbital-sync/ks.yaml
 components:
-  - ../../components/namespace
+  - ../../components/common
