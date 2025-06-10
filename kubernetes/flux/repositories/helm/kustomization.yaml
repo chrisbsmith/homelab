@@ -22,5 +22,4 @@ resources:
   - ./synology-csi.yaml
   - ./weave-gitops.yaml
   - ./pihole.yaml
-  # - ./headlamp.yaml
-  # - ./cloudnative-pg.yaml
+  - ./headlamp.yaml

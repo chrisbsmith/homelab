@@ -5,16 +5,11 @@ metadata:
   name: &app orbital-sync
   namespace: flux-system
 spec:
-  targetNamespace: &namespace networking
+  targetNamespace: networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/networking/orbital-sync/app
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
