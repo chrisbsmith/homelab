@@ -6,16 +6,11 @@ metadata:
   name: &app external-secrets
   namespace: flux-system
 spec:
-  targetNamespace: &namespace kube-system
+  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/kube-system/external-secrets/app
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
@@ -32,18 +27,13 @@ metadata:
   name: &app external-secrets-stores
   namespace: flux-system
 spec:
-  targetNamespace: &namespace kube-system
+  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
   path: ./kubernetes/apps/kube-system/external-secrets/stores
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

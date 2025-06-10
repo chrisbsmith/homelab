@@ -5,18 +5,11 @@ metadata:
   name: &app glauth
   namespace: flux-system
 spec:
-  targetNamespace: &namespace auth
+  targetNamespace: auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/auth/glauth/app
-  components:
-    - ../../../../components/gatus/internal
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

@@ -6,18 +6,13 @@ metadata:
   name: &app cloudnative-pg
   namespace: flux-system
 spec:
-  targetNamespace: &namespace database
+  targetNamespace: database
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/database/cloudnative-pg/app
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
@@ -34,18 +29,13 @@ metadata:
   name: &app cloudnative-pg-cluster
   namespace: flux-system
 spec:
-  targetNamespace: &namespace database
+  targetNamespace: database
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
