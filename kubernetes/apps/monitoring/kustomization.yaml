@@ -11,4 +11,4 @@ resources:
   - ./gatus-external-services/ks.yaml
   - ./thanos/ks.yaml
 components:
-  - ../../components/namespace
+  - ../../components/common

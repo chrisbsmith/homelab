@@ -5,4 +5,4 @@ namespace: default
 resources:
   - ./smtp-relay/ks.yaml
 components:
-  - ../../components/namespace
+  - ../../components/common
