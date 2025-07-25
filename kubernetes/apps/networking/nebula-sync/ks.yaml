@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/networking/nebula-sync/app
   components:
-    - ../../../../components/gatus/external-endpoints
+    - ../../../../components/gatus/external-endpoint
   prune: true
   sourceRef:
     kind: GitRepository
