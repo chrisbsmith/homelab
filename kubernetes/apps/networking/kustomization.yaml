@@ -9,3 +9,4 @@ resources:
   - ./nginx/ks.yaml
   - ./pihole/ks.yaml
   - ./orbital-sync/ks.yaml
+  - ./nebula-sync/ks.yaml
