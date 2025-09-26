@@ -1,0 +1,6 @@
+external-endpoints:
+  - name: "${APP}"
+    group: webhooks
+    token: "${TOKEN}"
+    alerts:
+      - type: pushover

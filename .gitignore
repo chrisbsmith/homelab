@@ -3,12 +3,25 @@
 Thumbs.db
 .vscode/
 
+# configs
+cluster.yaml
+cloudflare-tunnel.json
+
 # k8s
-kubeconfig
+k3s.yaml
+kubeconfig*
 .decrypted~*.yaml
 .config.env
 *.agekey
 *.pub
 *.key
+*.txt
+
 # Ansible
 .venv*
+
+# original kubernetes manifests
+kubernetes_orig/
+
+# templates
+templates/
