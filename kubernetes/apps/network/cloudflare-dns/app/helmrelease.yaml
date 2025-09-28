@@ -18,6 +18,7 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    logLevel: debug
     fullnameOverride: *app
     provider: cloudflare
     env:
