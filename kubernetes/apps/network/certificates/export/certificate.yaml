@@ -9,7 +9,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: homelab
+  commonName: ${SECRET_DOMAIN}
   dnsNames:
     - ${SECRET_DOMAIN}
     - "*.${SECRET_DOMAIN}"
