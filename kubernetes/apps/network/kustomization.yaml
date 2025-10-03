@@ -10,6 +10,4 @@ resources:
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./envoy-gateway/ks.yaml
-  # - ./external-dns/ks.yaml
-  # - ./nebula-sync/ks.yaml
-  # - ./pihole/ks.yaml
+  - ./unifi-dns/ks.yaml
