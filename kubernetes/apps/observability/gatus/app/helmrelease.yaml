@@ -42,6 +42,11 @@ spec:
               GATUS_DELAY_START_SECONDS: 5
               GATUS_WEB_PORT: &port 80
               TZ: America/New_York
+            envFrom: &envFrom
+              - secretRef:
+                  name: gatus-secret
+              - secretRef:
+                  name: cluster-secrets
             probes:
               liveness: &probes
                 enabled: true
