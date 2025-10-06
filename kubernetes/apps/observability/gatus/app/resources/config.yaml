@@ -1,7 +1,4 @@
 ---
-web:
-  port: ${CUSTOM_WEB_PORT}
-
 metrics: true
 debug: true
 
