@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/observability/gatus/app
   components:
-  - ../../components/defaults
+  - ../../../components/defaults
   prune: true
   sourceRef:
     kind: GitRepository
