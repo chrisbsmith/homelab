@@ -26,7 +26,7 @@ spec:
     # image:
     #   tag: v0.17.0
     registry: noop
-    policy: sync
+    policy: upsert-only
     provider: pihole
     env:
       - name: EXTERNAL_DNS_PIHOLE_SERVER
