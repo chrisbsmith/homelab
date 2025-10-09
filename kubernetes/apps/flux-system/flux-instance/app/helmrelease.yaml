@@ -35,7 +35,7 @@ spec:
       sync:
         kind: GitRepository
         url: "https://github.com/chrisbsmith/homelab.git"
-        ref: "refs/heads/2.0"
+        ref: "refs/heads/main"
         path: kubernetes/flux/cluster
       commonMetadata:
         labels:
