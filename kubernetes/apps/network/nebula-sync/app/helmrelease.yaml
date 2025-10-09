@@ -49,7 +49,6 @@ spec:
               SYNC_GRAVITY_CLIENT: true
               SYNC_GRAVITY_CLIENT_BY_GROUP: true
               CLIENT_TIMEOUT_SECONDS: 60
-              RUN_GRAVITY: false
               CRON: "*/5 * * * *"
             envFrom: &envFrom
               - secretRef:
