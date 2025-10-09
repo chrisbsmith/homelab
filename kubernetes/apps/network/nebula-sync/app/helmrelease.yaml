@@ -30,9 +30,27 @@ spec:
               repository: ghcr.io/lovelaze/nebula-sync
               tag: v0.11.0
             env:
-              FULL_SYNC: true
-              RUN_GRAVITY: true
+              FULL_SYNC: false
+              RUN_GRAVITY: false
               TZ: America/New_York
+              SYNC_CONFIG_DNS: true
+              SYNC_CONFIG_DNS_EXCLUDE: listeningMode
+              SYNC_CONFIG_NTP: true
+              SYNC_CONFIG_RESOLVER: true
+              SYNC_CONFIG_DATABASE: true
+              SYNC_CONFIG_MISC: true
+              SYNC_CONFIG_DEBUG: false
+              SYNC_GRAVITY_DHCP_LEASES: true
+              SYNC_GRAVITY_GROUP: true
+              SYNC_GRAVITY_AD_LIST: true
+              SYNC_GRAVITY_AD_LIST_BY_GROUP: true
+              SYNC_GRAVITY_DOMAIN_LIST: true
+              SYNC_GRAVITY_DOMAIN_LIST_BY_GROUP: true
+              SYNC_GRAVITY_CLIENT: true
+              SYNC_GRAVITY_CLIENT_BY_GROUP: true
+              CLIENT_TIMEOUT_SECONDS: 60
+              RUN_GRAVITY: false
+              CRON: */5 * * * *```
             envFrom: &envFrom
               - secretRef:
                   name: nebula-sync-secret
