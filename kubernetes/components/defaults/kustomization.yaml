@@ -21,3 +21,14 @@ patches:
           crds: CreateReplace
           remediation:
             retries: 3
+  - target:
+      kind: Kustomization
+      version: v1
+      group: kustomize.toolkit.fluxcd.io
+    patch: |-
+      - op: add
+        path: /spec/postbuild
+        value:
+          substituteFrom:
+            - name: cluster-secrets
+              kind: Secret
