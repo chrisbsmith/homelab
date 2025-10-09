@@ -1,6 +1,5 @@
 ---
 metrics: true
-debug: true
 
 ui:
   title: Status | Gatus

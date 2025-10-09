@@ -1,17 +1,21 @@
-ansible:
-- changed-files:
-    - any-glob-to-any-file: ansible/**/*
-docs:
-- changed-files:
-    - any-glob-to-any-file: docs/**/*
-    - any-glob-to-any-file: README.md
-github:
-- changed-files:
-    - any-glob-to-any-file: .github/**/*
-kubernetes:
-- changed-files:
-    - any-glob-to-any-file: kubernetes/**/*
-taskfile:
-- changed-files:
-    - any-glob-to-any-file: .taskfiles/**/*
-    - any-glob-to-any-file: Taskfile*
+---
+area/bootstrap:
+  - changed-files:
+      - any-glob-to-any-file:
+          - bootstrap/**/*
+
+area/github:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**/*
+
+area/kubernetes:
+  - changed-files:
+      - any-glob-to-any-file:
+          - kubernetes/**/*
+
+area/renovate:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .renovate/**/*
+          - .renovaterc.json5
