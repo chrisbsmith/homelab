@@ -34,7 +34,7 @@ spec:
               RUN_GRAVITY: false
               TZ: America/New_York
               SYNC_CONFIG_DNS: true
-              SYNC_CONFIG_DNS_EXCLUDE: listeningMode
+              SYNC_CONFIG_DNS_EXCLUDE: listeningMode,upstreams
               SYNC_CONFIG_MISC: true
               SYNC_CONFIG_DEBUG: false
               CLIENT_TIMEOUT_SECONDS: 60
