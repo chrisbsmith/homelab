@@ -9,15 +9,6 @@
         "kopia"
       ],
       "allowedVersions": "<999"
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackagePatterns": [
-        "postgresql"
-      ],
-      "allowedVersions": "<=16"
     }
   ]
 }
