@@ -15,7 +15,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-    substituteFrom:
       - name: alertmanager-secrets
         kind: Secret
     substitute:
