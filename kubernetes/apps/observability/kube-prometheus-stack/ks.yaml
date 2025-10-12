@@ -15,6 +15,9 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substituteFrom:
+      - name: alertmanager-secrets
+        kind: Secret
     substitute:
       APP: alertmanager
   interval: 1h
