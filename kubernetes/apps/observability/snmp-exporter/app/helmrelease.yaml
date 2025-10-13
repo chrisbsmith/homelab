@@ -124,6 +124,6 @@ spec:
             readOnly: true
   valuesFrom:
     - kind: Secret
-      name: *app
+      name: snmp-exporter-secret
       valuesKey: values.yaml
       optional: false
