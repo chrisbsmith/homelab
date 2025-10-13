@@ -21,7 +21,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
       namespace: observability
-    - name: exteranl-secrets
+    - name: external-secrets
       namespace: external-secrets
   values:
     controllers:
