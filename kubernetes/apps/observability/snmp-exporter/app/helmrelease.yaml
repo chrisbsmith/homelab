@@ -41,7 +41,7 @@ spec:
               - (envsubst < /template/config.yaml > /config/snmp.yaml)
             envFrom: &envFrom
               - secretRef:
-                  name: snmp-secret
+                  name: snmp-exporter-secret
             resources: &configSyncResources
               requests:
                 cpu: 10m
