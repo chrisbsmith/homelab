@@ -23,6 +23,14 @@ spec:
       namespace: observability
     - name: external-secrets
       namespace: external-secrets
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: snmp-exporter-secret
+        kind: Secret
+    substitute:
+      APP: *app
   values:
     controllers:
       snmp-exporter:
@@ -30,25 +38,24 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-config:
-            image: &configSyncImage
-              repository: ghcr.io/linuxcontainers/alpine
-              tag: 3
-            command:
-              - sh
-              - -c
-              - apk add --no-cache envsubst
-              - (envsubst < /template/config.yaml > /config/snmp.yaml)
-            envFrom: &envFrom
-              - secretRef:
-                  name: snmp-exporter-secret
-            resources: &configSyncResources
-              requests:
-                cpu: 10m
-                memory: 10Mi
-              limits:
-                memory: 128Mi
+        # initContainers:
+        #   init-config:
+        #     image: &configSyncImage
+        #       repository: ghcr.io/linuxcontainers/alpine
+        #       tag: 3
+        #     command:
+        #       - sh
+        #       - -c
+        #       - (envsubst < /template/config.yaml > /config/snmp.yaml)
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: snmp-exporter-secret
+        #     resources: &configSyncResources
+        #       requests:
+        #         cpu: 10m
+        #         memory: 10Mi
+        #       limits:
+        #         memory: 128Mi
         containers:
           app:
             image:
