@@ -33,7 +33,7 @@ spec:
         initContainers:
           init-config:
             image: &configSyncImage
-              repository: docker pull ghcr.io/linuxcontainers/alpine
+              repository: ghcr.io/linuxcontainers/alpine
               tag: 3.20
             command:
               - sh
