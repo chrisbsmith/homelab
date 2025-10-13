@@ -10,6 +10,7 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
   - ./unpoller/ks.yaml
+  - ./snmp-exporter/ks.yaml
   # - ./gatus-external-services/ks.yaml
-  # - ./snmp-exporter/ks.yaml
+
 
