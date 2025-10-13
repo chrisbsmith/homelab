@@ -13,7 +13,7 @@ spec:
   components:
     - ../../../../components/defaults
     - ../../../../components/gatus/internal
-  path: ./kubernetes/apps/observability/gatus/app
+  path: ./kubernetes/apps/observability/grafana/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
