@@ -20,7 +20,9 @@ spec:
     keepHistory: false
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: monitoring
+      namespace: observability
+    - name: exteranl-secrets
+      namespace: external-secrets
   values:
     controllers:
       snmp-exporter:
