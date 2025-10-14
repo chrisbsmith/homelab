@@ -30,24 +30,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
-        #   init-config:
-        #     image: &configSyncImage
-        #       repository: ghcr.io/linuxcontainers/alpine
-        #       tag: 3
-        #     command:
-        #       - sh
-        #       - -c
-        #       - (envsubst < /template/config.yaml > /config/snmp.yaml)
-        #     envFrom: &envFrom
-        #       - secretRef:
-        #           name: snmp-exporter-secret
-        #     resources: &configSyncResources
-        #       requests:
-        #         cpu: 10m
-        #         memory: 10Mi
-        #       limits:
-        #         memory: 128Mi
         containers:
           app:
             image:
