@@ -23,14 +23,6 @@ spec:
       namespace: observability
     - name: external-secrets
       namespace: external-secrets
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-      - name: snmp-exporter-secret
-        kind: Secret
-    substitute:
-      APP: *app
   values:
     controllers:
       snmp-exporter:
