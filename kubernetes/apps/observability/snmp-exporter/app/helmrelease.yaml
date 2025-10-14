@@ -39,7 +39,7 @@ spec:
               - "--config.file=/config/snmp.yaml"
             envFrom: &envFrom
               - secretRef:
-                  name: snmp-exporter-secret
+                  name: snmp-secret
             probes:
               liveness: &probes
                 enabled: true
