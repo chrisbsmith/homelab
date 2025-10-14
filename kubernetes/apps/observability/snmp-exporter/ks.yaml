@@ -48,7 +48,7 @@ spec:
   timeout: 5m
   postBuild:
     substituteFrom:
-      - name: snmp-exporter-secret
+      - name: snmp-secret
         kind: Secret
     substitute:
       APP: *app
