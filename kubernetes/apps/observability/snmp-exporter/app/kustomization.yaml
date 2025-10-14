@@ -6,10 +6,10 @@ resources:
   - ./rbac.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-configMapGenerator:
-  - name: snmp-configmap
-    files:
-      - config.yaml=./resources/config.yaml
+# configMapGenerator:
+#   - name: snmp-configmap
+#     files:
+#       - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

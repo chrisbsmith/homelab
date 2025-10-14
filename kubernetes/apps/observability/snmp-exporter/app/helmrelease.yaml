@@ -99,15 +99,23 @@ spec:
       config:
         enabled: true
         type: emptyDir
-      config-file:
-        type: configMap
-        name: snmp-configmap
+      # config-file:
+      #   type: configMap
+      #   name: snmp-configmap
+      #   globalMounts:
+      #     - path: /template/config.yaml
+      #       subPath: config.yaml
+      #       readOnly: true
+      configFile:
+        type: secret
+        name: snmp-secret
+        key: snmp.yaml
         globalMounts:
-          - path: /template/config.yaml
-            subPath: config.yaml
+          - path: /config/snmp.yaml
+            subPath: snmp.yaml
             readOnly: true
-  # valuesFrom:
-  #   - kind: Secret
-  #     name: snmp-secret
-  #     valuesKey: values.yaml
-  #     optional: false
+  valuesFrom:
+    - kind: Secret
+      name: snmp-secret
+      valuesKey: values.yaml
+      optional: false
