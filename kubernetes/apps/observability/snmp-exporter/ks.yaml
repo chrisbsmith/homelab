@@ -12,6 +12,7 @@ spec:
   path: ./kubernetes/apps/observability/snmp-exporter/secret
   dependsOn:
     - name: external-secrets
+      namespace: external-secrets
   prune: true
   sourceRef:
     kind: GitRepository
