@@ -98,22 +98,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: emptyDir
-      # config-file:
-      #   type: configMap
-      #   name: snmp-configmap
-      #   globalMounts:
-      #     - path: /template/config.yaml
-      #       subPath: config.yaml
-      #       readOnly: true
-      configFile:
         type: secret
         name: snmp-secret
-        key: snmp.yaml
-        globalMounts:
-          - path: /config/snmp.yaml
-            subPath: snmp.yaml
-            readOnly: true
   valuesFrom:
     - kind: Secret
       name: snmp-secret
