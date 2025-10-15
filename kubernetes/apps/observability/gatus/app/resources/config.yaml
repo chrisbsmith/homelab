@@ -32,7 +32,7 @@ external-endpoints:
     alerts:
       - type: pushover
 
-  - name: "Alert Manager"
+  - name: "AlertManager"
     group: webhooks
     token: "${ALERTMANAGER_HEARTBEAT_TOKEN}"
     alerts:
