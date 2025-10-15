@@ -13,7 +13,6 @@ spec:
   path: ./kubernetes/apps/observability/gatus-external-services/services
   components:
     - ../../../../components/defaults
-    - ../../../../components/gatus/hardware
   prune: true
   sourceRef:
     kind: GitRepository

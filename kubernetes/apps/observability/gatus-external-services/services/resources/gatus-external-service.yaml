@@ -1,0 +1,7 @@
+endpoints:
+  - name: "{{ .APP }}"
+    group: hardware
+    url: "tcp://{{ .IP }}:{{ .PORT }}"
+    interval: 30s
+    conditions:
+      - "[CONNECTED] == true"
