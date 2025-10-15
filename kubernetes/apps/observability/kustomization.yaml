@@ -11,6 +11,7 @@ resources:
   - ./grafana/ks.yaml
   - ./unpoller/ks.yaml
   - ./snmp-exporter/ks.yaml
+  - ./silence-operator/ks.yaml
   # - ./gatus-external-services/ks.yaml
 
 
