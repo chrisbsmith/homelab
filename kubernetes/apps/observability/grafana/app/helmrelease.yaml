@@ -198,6 +198,11 @@ spec:
     serviceMonitor:
       enabled: true
     route:
+      annotations:
+        gatus.home-operations.com/endpoint: |-
+          conditions:
+            - "[STATUS] < 300"
+            - "[RESPONSE_TIME] < 300"
       main:
         enabled: true
         hostnames:
