@@ -38,7 +38,7 @@ spec:
             env:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              GATUS_WEB_PORT: &port 80
+              GATUS_WEB_PORT: &port 8080
               TZ: America/New_York
             envFrom:
               - secretRef:
@@ -51,7 +51,7 @@ spec:
                   httpGet:
                     path: /health
                     port: *port
-                  initialDelaySeconds: 0
+                  initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
