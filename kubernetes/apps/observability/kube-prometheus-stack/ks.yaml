@@ -10,7 +10,7 @@ spec:
       namespace: openebs-system
   components:
     - ../../../../components/defaults
-    - ../../../../components/gatus/webhook
+
   postBuild:
     substituteFrom:
       - name: cluster-secrets

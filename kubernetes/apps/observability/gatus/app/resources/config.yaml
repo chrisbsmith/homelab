@@ -24,3 +24,16 @@ storage:
   type: sqlite
   caching: true
   path: ${GATUS_CONFIG_PATH}/gatus.db
+
+external-endpoints:
+  - name: "Nebula Sync"
+    group: webhooks
+    token: "${NEBULA_SYNC_HEARTBEAT_TOKEN}"
+    alerts:
+      - type: pushover
+
+  - name: "Alert Manager"
+    group: webhooks
+    token: "${ALERTMANAGER_HEARTBEAT_TOKEN}"
+    alerts:
+      - type: pushover

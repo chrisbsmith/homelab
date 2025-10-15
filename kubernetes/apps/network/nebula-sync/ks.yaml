@@ -13,7 +13,6 @@ spec:
   path: ./kubernetes/apps/network/nebula-sync/app
   components:
     - ../../../../components/defaults
-    - ../../../../components/gatus/webhook
   postBuild:
     substituteFrom:
       - name: cluster-secrets
