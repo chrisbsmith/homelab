@@ -137,7 +137,7 @@ spec:
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
-          revision: 7
+          revision: 8
           datasource: Prometheus
         synology-snmp:
           # renovate: depName="Synology SNMP"
