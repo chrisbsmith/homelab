@@ -46,7 +46,6 @@ spec:
       - ${SECRET_DOMAIN}
     extraArgs:
       - --gateway-name=envoy-internal
-      - --pihole-api-version=6
     serviceMonitor:
       enabled: true
     podAnnotations:
