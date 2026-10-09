@@ -114,11 +114,84 @@ jobs:
             ${{ steps.diff.outputs.diff }}
             ```
 
+  image-check:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Flux Local - Image Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Extract Cluster Images
+        uses: docker://ghcr.io/allenporter/flux-local:v8.4.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          args: >-
+            get cluster
+            --path /github/workspace/kubernetes/flux/cluster
+            --enable-images
+            --only-images
+            --output json
+            --output-file /github/workspace/images.json
+
+      - name: Install crane
+        env:
+          CRANE_VERSION: v0.20.6
+        run: |-
+          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/go-containerregistry_Linux_x86_64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin crane
+          crane version
+
+      - name: Validate Image Tags Exist
+        run: |-
+          python3 - <<'PY' > images.txt
+          import json
+          d = json.load(open("images.json"))
+          def walk(x):
+              if isinstance(x, str):
+                  yield x
+              elif isinstance(x, list):
+                  for i in x:
+                      yield from walk(i)
+              elif isinstance(x, dict):
+                  for v in x.values():
+                      yield from walk(v)
+          # keep image-like refs (have a registry path and a tag), drop bare digests
+          imgs = sorted({s for s in walk(d) if "/" in s and ":" in s and not s.startswith("sha256:")})
+          print("\n".join(imgs))
+          PY
+          echo "Checking $(grep -c . images.txt) images referenced by the cluster..."
+          missing=()
+          while IFS= read -r img; do
+            [ -z "$img" ] && continue
+            if out=$(crane manifest "$img" 2>&1 >/dev/null); then
+              echo "ok: $img"
+            elif printf '%s' "$out" | grep -qiE 'MANIFEST_UNKNOWN|NAME_UNKNOWN|not found|404'; then
+              echo "MISSING: $img"
+              missing+=("$img")
+            else
+              # auth errors, private registries, rate limits: warn, do not fail
+              echo "::warning title=Unverified image::${img}: ${out}"
+            fi
+          done < images.txt
+          if [ "${#missing[@]}" -gt 0 ]; then
+            for m in "${missing[@]}"; do
+              echo "::error title=Image tag not found::${m} does not exist in its registry"
+            done
+            exit 1
+          fi
+          echo "All referenced image tags exist."
+
   success:
     if: ${{ !cancelled() }}
     needs:
       - test
       - diff
+      - image-check
     name: Flux Local - Success
     runs-on: ubuntu-latest
     steps:
