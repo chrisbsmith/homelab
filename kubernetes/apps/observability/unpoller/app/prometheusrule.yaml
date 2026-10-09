@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: unpoller-rules
+spec:
+  groups:
+    - name: unifi.rules
+      rules:
+        # UnPoller itself stopped producing metrics, so every alert below is blind.
+        - alert: UnifiExporterDown
+          expr: |-
+            up{job="unpoller"} == 0
+          for: 10m
+          annotations:
+            summary: >-
+              UnPoller is down; UniFi metrics and the alerts based on them are blind
+          labels:
+            severity: warning
+
+        # Sustained high CPU on the gateway. Normal is ~15-20%; the Oct 2026
+        # outage was the Network app's JVM stuck in a Full GC spiral pinning
+        # ~90% for days before the controller became unresponsive.
+        - alert: UnifiGatewayHighCpu
+          expr: |-
+            unpoller_device_cpu_utilization_ratio{type="udm"} > 0.8
+          for: 30m
+          annotations:
+            summary: >-
+              {{ $labels.name }} CPU has held above 80% for 30m (now {{ $value | humanizePercentage }});
+              the Network app may be in a GC/heap spiral - check and restart the unifi service
+          labels:
+            severity: critical
+
+        # Sustained high memory on the gateway. The device has only ~3.9Gi RAM
+        # and runs Protect and Talk too, so heap growth pushes it toward OOM.
+        - alert: UnifiGatewayHighMemory
+          expr: |-
+            unpoller_device_memory_utilization_ratio{type="udm"} > 0.9
+          for: 30m
+          annotations:
+            summary: >-
+              {{ $labels.name }} memory has held above 90% for 30m (now {{ $value | humanizePercentage }})
+          labels:
+            severity: warning
+
+        # The gateway dropped out of UnPoller entirely. With the exporter still
+        # up, this means the Network app could not be polled - the controller is
+        # unresponsive or the device is down.
+        - alert: UnifiGatewayUnreachable
+          expr: |-
+            absent(unpoller_device_uptime_seconds{type="udm"})
+          for: 15m
+          annotations:
+            summary: >-
+              The UniFi gateway has been absent from UnPoller for 15m; the Network app is likely
+              unresponsive or the device is down
+          labels:
+            severity: critical
