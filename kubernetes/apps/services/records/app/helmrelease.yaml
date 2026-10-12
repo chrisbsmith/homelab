@@ -19,8 +19,38 @@ spec:
   values:
     controllers:
       records:
+        # SQLite on a ReadWriteOnce volume: two pods must never hold the
+        # database open at once.
         strategy: Recreate
         replicas: 1
+        initContainers:
+          # The CSI driver declares fsGroupPolicy: ReadWriteOnceWithFSType and
+          # this StorageClass sets no fsType, so the kubelet skips applying
+          # fsGroup and a fresh volume stays root:root 0755. The app runs as
+          # 10001 and cannot create /data/covers or the database.
+          #
+          # Declaring fsType on the StorageClass is the real fix, but those
+          # parameters are immutable once created, so it would mean deleting a
+          # StorageClass that other apps use. This chown is scoped to one
+          # volume instead.
+          init-chown:
+            image:
+              repository: public.ecr.aws/docker/library/busybox
+              tag: 1.37.0
+            command:
+              - sh
+              - -c
+              - chown -R 10001:10001 /data && chmod 0750 /data
+            securityContext:
+              # The only thing in this pod that runs as root, for one command.
+              runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+                add: ["CHOWN", "FOWNER"]
         containers:
           app:
             image:
