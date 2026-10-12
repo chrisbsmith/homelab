@@ -28,10 +28,13 @@ spec:
       # kubelet skip applying fsGroup entirely. A fresh volume stays root:root
       # 0755, so any workload that does not run as root cannot write to it.
       #
-      # Two keys, doing different jobs:
-      #   fsType                     - tells the Synology driver how to format
-      #   csi.storage.k8s.io/fstype  - tells Kubernetes, which is the one
-      #                                fsGroupPolicy actually inspects
+      # Use the Kubernetes-standard key ONLY. The external-provisioner
+      # refuses a class carrying both it and the driver's own `fsType`:
+      #   ProvisioningFailed: fstype specified in parameters with both
+      #   "fstype" and "csi.storage.k8s.io/fstype" keys
+      # The standard key does both jobs anyway - the provisioner records it on
+      # PV.spec.csi.fsType, which is what fsGroupPolicy inspects, and passes it
+      # to the driver as the mount capability's fs_type to format with.
       #
       # StorageClass parameters are immutable, so applying this needs the class
       # deleted and recreated. Existing PVs are unaffected either way: a PV
@@ -40,7 +43,6 @@ spec:
         reclaimPolicy: Retain
         parameters:
           protocol: iscsi
-          fsType: ext4
           csi.storage.k8s.io/fstype: ext4
     volumeSnapshotClasses:
       delete:
