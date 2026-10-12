@@ -19,19 +19,12 @@ spec:
   values:
     controllers:
       records:
-        # SQLite on a ReadWriteOnce volume: two pods must never hold the
-        # database open at once, so the old one has to go before the new one
-        # starts.
         strategy: Recreate
         replicas: 1
         containers:
           app:
             image:
               repository: ghcr.io/chrisbsmith/records
-              # A released version, never `latest` or a bare commit sha: this
-              # cluster runs no image automation, so the tag is the record of
-              # what is deployed. The build workflow prints a digest-pinned
-              # line to paste here; append @sha256:... once the release exists.
               tag: 0.1.0
             env:
               DATA_DIR: /data
