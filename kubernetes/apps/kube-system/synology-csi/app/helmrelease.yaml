@@ -22,6 +22,26 @@ spec:
     clientInfoSecret:
       create: false
       name: "synology-csi-client-info-secret"
+    storageClasses:
+      # Without an fsType the provisioner leaves PV.spec.csi.fsType empty, and
+      # the driver's fsGroupPolicy: ReadWriteOnceWithFSType then makes the
+      # kubelet skip applying fsGroup entirely. A fresh volume stays root:root
+      # 0755, so any workload that does not run as root cannot write to it.
+      #
+      # Two keys, doing different jobs:
+      #   fsType                     - tells the Synology driver how to format
+      #   csi.storage.k8s.io/fstype  - tells Kubernetes, which is the one
+      #                                fsGroupPolicy actually inspects
+      #
+      # StorageClass parameters are immutable, so applying this needs the class
+      # deleted and recreated. Existing PVs are unaffected either way: a PV
+      # stops consulting its class once bound.
+      iscsi-retain:
+        reclaimPolicy: Retain
+        parameters:
+          protocol: iscsi
+          fsType: ext4
+          csi.storage.k8s.io/fstype: ext4
     volumeSnapshotClasses:
       delete:
         deletionPolicy: Retain
