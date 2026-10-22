@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/chrisbsmith/records
-              tag: 0.5.1
+              tag: 0.6.0
             env:
               DATA_DIR: /data
               PORT: &port 8000
