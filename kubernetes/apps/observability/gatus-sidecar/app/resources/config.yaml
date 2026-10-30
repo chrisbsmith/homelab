@@ -1,0 +1,39 @@
+---
+metrics: true
+
+ui:
+  title: Status | Gatus
+  header: Status
+
+alerting:
+  pushover:
+    application-token: ${GATUS_PUSHOVER_TOKEN}
+    user-key: ${PUSHOVER_USER_KEY}
+    default-alert:
+      description: health-check failed
+      send-on-resolved: true
+      failure-threshold: 5
+      success-threshold: 2
+
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+
+storage:
+  type: sqlite
+  caching: true
+  path: ${GATUS_CONFIG_PATH}/gatus.db
+
+external-endpoints:
+  - name: "Nebula Sync"
+    group: webhooks
+    token: "${NEBULA_SYNC_HEARTBEAT_TOKEN}"
+    alerts:
+      - type: pushover
+
+  - name: "AlertManager"
+    group: webhooks
+    token: "${ALERTMANAGER_HEARTBEAT_TOKEN}"
+    alerts:
+      - type: pushover
