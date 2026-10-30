@@ -89,6 +89,12 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+        gatus:
+          # renovate: depName="Gatus / Overview"
+          gnetId: 25874
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
