@@ -1,0 +1,47 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Zizmor
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/**
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/**
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+env:
+  # renovate: datasource=github-releases depName=zizmorcore/zizmor
+  ZIZMOR_VERSION: "1.31.1"
+
+jobs:
+  zizmor:
+    name: Zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Fail the run on findings and annotate the PR, instead of uploading SARIF
+      # to code scanning (which would need security-events: write).
+      - name: Run zizmor
+        uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
+        with:
+          version: ${{ env.ZIZMOR_VERSION }}
+          advanced-security: false
+          annotations: true
