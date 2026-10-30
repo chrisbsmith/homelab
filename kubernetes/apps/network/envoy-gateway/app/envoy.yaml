@@ -89,8 +89,8 @@ metadata:
       group: internal
       guarded: true
       ui:
-        hide-hostname: true
-        hide-url: true
+        hide-hostname: false
+        hide-url: false
 spec:
   gatewayClassName: envoy
   infrastructure:
