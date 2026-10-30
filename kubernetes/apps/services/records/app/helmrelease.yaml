@@ -88,7 +88,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: "http://{{ .Release.Name }}.${SECRET_DOMAIN}/healthz"
+            url: "https://{{ .Release.Name }}.${SECRET_DOMAIN}/healthz"
             conditions: ["[STATUS] == 200"]
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
