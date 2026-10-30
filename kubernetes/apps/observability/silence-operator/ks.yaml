@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: silence-operator
 spec:
+  components:
+    - ../../../../components/defaults
   interval: 1h
   path: ./kubernetes/apps/observability/silence-operator/app
   prune: true

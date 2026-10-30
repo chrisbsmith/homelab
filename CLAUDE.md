@@ -18,7 +18,7 @@ Personal single-node Kubernetes cluster managed by Flux GitOps. Based on onedr0p
 
 - `kubernetes/flux/cluster/ks.yaml` is the root; it walks `kubernetes/apps/<namespace>/`.
 - Each app: `kubernetes/apps/<namespace>/<app>/ks.yaml` (Flux Kustomization) + `app/` (`helmrelease.yaml`, `ocirepository.yaml`, `externalsecret.yaml`, `kustomization.yaml`). New apps must also be listed in the namespace's `kustomization.yaml`.
-- `kubernetes/components/defaults` patches every HelmRelease (install retries `-1`, upgrade retries `3`, `cleanupOnFail`) and adds `postBuild.substituteFrom: cluster-secrets`. `${SECRET_DOMAIN}` etc. come from that Secret.
+- `kubernetes/components/defaults` patches HelmReleases (install retries `-1`, upgrade retries `3`, `cleanupOnFail`) and adds `postBuild.substituteFrom: cluster-secrets`. `${SECRET_DOMAIN}` etc. come from that Secret. It only applies when the app's `ks.yaml` lists it under `spec.components` (or the HelmRelease sets its own `install`/`upgrade` remediation); without it, a single failed upgrade stalls the release with `RetriesExceeded`.
 - Charts come from per-app `OCIRepository` sources (`chartRef`): upstream charts for infrastructure, bjw-s `app-template` for self-hosted apps.
 - Secrets: `ExternalSecret` → `ClusterSecretStore` `onepassword` (1Password Connect). Never put secret values in git.
 - `bootstrap/` holds the initial-install charts (cilium, coredns, external-secrets, …) and is still kept current by Renovate.
