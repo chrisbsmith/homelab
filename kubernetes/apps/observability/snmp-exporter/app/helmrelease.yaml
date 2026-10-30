@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: prom/snmp-exporter
-              tag: v0.30.1
+              tag: v0.31.0
             args:
               - "--config.file=/config/snmp.yaml"
             envFrom: &envFrom
