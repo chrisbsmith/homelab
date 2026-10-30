@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Flux Local
+name: Flate
 
 on:
   pull_request:
@@ -14,9 +14,15 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  # renovate: datasource=github-releases depName=home-operations/flate
+  FLATE_VERSION: "0.6.5"
+  FLATE_PATH: kubernetes/flux/cluster
+  FLATE_NO_PROGRESS: "true"
+
 jobs:
   filter:
-    name: Flux Local - Filter
+    name: Flate - Filter
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
@@ -30,7 +36,7 @@ jobs:
   test:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Flux Local - Test
+    name: Flate - Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,22 +44,20 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v8.4.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Setup flate
+        uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
         with:
-          args: >-
-            test
-            --all-namespaces
-            --enable-helm
-            --path /github/workspace/kubernetes/flux/cluster
-            --verbose
+          version: ${{ env.FLATE_VERSION }}
+          cache: "true"
+
+      # The setup action exports FLATE_BASE; unset it so test covers the full tree
+      - name: Run flate test
+        run: unset FLATE_BASE && flate test all
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Flux Local - Diff
+    name: Flate - Diff
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -61,46 +65,45 @@ jobs:
     strategy:
       matrix:
         resource:
-          - helmrelease
-          - kustomization
+          - hr
+          - ks
       fail-fast: false
     steps:
-
-      - name: Checkout Pull Request Branch
+      - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          path: pull
+          fetch-depth: 0
           persist-credentials: false
 
-      - name: Checkout Default Branch
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Setup flate
+        uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
         with:
-          path: default
-          persist-credentials: false
-          ref: ${{ github.event.repository.default_branch }}
+          version: ${{ env.FLATE_VERSION }}
+          cache: "true"
 
-
-      - name: Run flux-local diff
-        uses: docker://ghcr.io/allenporter/flux-local:v8.4.0
+      # Informational only: `flate test` is the gate. A broken default branch (e.g. a
+      # chart source that disappeared) fails the baseline render, and must not block
+      # the PR that fixes it.
+      - name: Run flate diff
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          args: >-
-            diff ${{ matrix.resource }}
-            --unified 6
-            --path /github/workspace/pull/kubernetes/flux/cluster
-            --path-orig /github/workspace/default/kubernetes/flux/cluster
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
-            --limit-bytes 10000
-            --all-namespaces
-            --sources "flux-system"
-            --output-file diff.patch
+          BASE: origin/${{ github.event.repository.default_branch }}
+          RESOURCE: ${{ matrix.resource }}
+        run: |-
+          if ! flate diff "${RESOURCE}" --base "${BASE}" --output github > diff.txt 2> diff.err; then
+            echo "::warning title=flate diff::$(head -c 1000 diff.err | tr '\n' ' ')"
+          fi
+          # GitHub caps comments at 65536 characters
+          if [ "$(wc -c < diff.txt)" -gt 60000 ]; then
+            head -c 60000 diff.txt > diff.trunc
+            printf '\n... (truncated, run `flate diff %s --base %s` locally for the full diff)\n' "${RESOURCE}" "${BASE}" >> diff.trunc
+            mv diff.trunc diff.txt
+          fi
 
       - name: Generate Diff
         id: diff
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          cat diff.patch >> $GITHUB_OUTPUT
+          cat diff.txt >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.diff.outputs.diff != '' }}
@@ -117,7 +120,7 @@ jobs:
   image-check:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Flux Local - Image Check
+    name: Flate - Image Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -125,18 +128,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Extract Cluster Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.4.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Setup flate
+        uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
         with:
-          args: >-
-            get cluster
-            --path /github/workspace/kubernetes/flux/cluster
-            --enable-images
-            --only-images
-            --output json
-            --output-file /github/workspace/images.json
+          version: ${{ env.FLATE_VERSION }}
+          cache: "true"
+
+      - name: Extract Cluster Images
+        run: unset FLATE_BASE && flate get images > images.txt
 
       - name: Install crane
         env:
@@ -148,22 +147,6 @@ jobs:
 
       - name: Validate Image Tags Exist
         run: |-
-          python3 - <<'PY' > images.txt
-          import json
-          d = json.load(open("images.json"))
-          def walk(x):
-              if isinstance(x, str):
-                  yield x
-              elif isinstance(x, list):
-                  for i in x:
-                      yield from walk(i)
-              elif isinstance(x, dict):
-                  for v in x.values():
-                      yield from walk(v)
-          # keep image-like refs (have a registry path and a tag), drop bare digests
-          imgs = sorted({s for s in walk(d) if "/" in s and ":" in s and not s.startswith("sha256:")})
-          print("\n".join(imgs))
-          PY
           echo "Checking $(grep -c . images.txt) images referenced by the cluster..."
           missing=()
           while IFS= read -r img; do
@@ -192,7 +175,7 @@ jobs:
       - test
       - diff
       - image-check
-    name: Flux Local - Success
+    name: Flate - Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?

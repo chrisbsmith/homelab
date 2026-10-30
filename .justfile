@@ -21,4 +21,4 @@ template file *args:
 
 [doc('Run Flux Test')]
 flux-test:
-    docker run --rm -v {{ root_dir }}:/workspace -w /workspace ghcr.io/allenporter/flux-local:v7.10.0 test --all-namespaces --enable-helm --path /workspace/kubernetes/flux/cluster --verbose
+    flate test all --path {{ root_dir }}/kubernetes/flux/cluster
