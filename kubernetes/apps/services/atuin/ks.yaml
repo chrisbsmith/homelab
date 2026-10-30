@@ -6,6 +6,8 @@ metadata:
   name: &app atuin
   namespace: &namespace services
 spec:
+  components:
+    - ../../../../components/defaults
   targetNamespace: *namespace
   commonMetadata:
     labels:
