@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name: grafana
   interval: 1h
+  timeout: 10m
   values:
     deploymentStrategy:
       type: Recreate
@@ -206,7 +207,9 @@ spec:
             namespace: network
             sectionName: https
     persistence:
-      enabled: false
+      enabled: true
+      storageClassName: synology-csi-iscsi-retain
+      size: 5Gi
     testFramework:
       enabled: false
 
