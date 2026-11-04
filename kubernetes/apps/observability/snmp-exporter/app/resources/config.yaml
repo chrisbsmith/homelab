@@ -8,6 +8,14 @@ auths:
     auth_protocol: SHA
     priv_protocol: AES
     priv_password: ${SNMP_PRIVACY_PASSWORD}
+  synology2:
+    version: 3
+    username: ${NAS2_SNMP_USERNAME}
+    password: ${NAS2_SNMP_PASSWORD}
+    security_level: authPriv
+    auth_protocol: SHA
+    priv_protocol: AES
+    priv_password: ${NAS2_SNMP_PRIVACY_PASSWORD}
 modules:
   synology:
     walk:

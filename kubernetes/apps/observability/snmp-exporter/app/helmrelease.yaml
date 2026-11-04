@@ -37,6 +37,7 @@ spec:
               tag: v0.31.0
             args:
               - "--config.file=/config/snmp.yaml"
+              - "--config.expand-environment-variables"
             envFrom: &envFrom
               - secretRef:
                   name: snmp-secret
@@ -98,8 +99,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: secret
-        name: snmp-secret
+        type: configMap
+        name: snmp-configmap
   valuesFrom:
     - kind: Secret
       name: snmp-secret
