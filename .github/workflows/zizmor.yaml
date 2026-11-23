@@ -23,7 +23,7 @@ permissions: {}
 
 env:
   # renovate: datasource=github-releases depName=zizmorcore/zizmor
-  ZIZMOR_VERSION: "1.32.0"
+  ZIZMOR_VERSION: "1.33.1"
 
 jobs:
   zizmor:
