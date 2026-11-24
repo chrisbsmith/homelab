@@ -21,10 +21,6 @@ concurrency:
 
 permissions: {}
 
-env:
-  # renovate: datasource=github-releases depName=zizmorcore/zizmor
-  ZIZMOR_VERSION: "1.33.1"
-
 jobs:
   zizmor:
     name: Zizmor
@@ -38,10 +34,11 @@ jobs:
           persist-credentials: false
 
       # Fail the run on findings and annotate the PR, instead of uploading SARIF
-      # to code scanning (which would need security-events: write).
+      # to code scanning (which would need security-events: write). No `version`
+      # input: the action only knows zizmor releases up to its own release, so a
+      # separately-bumped pin breaks it. Renovate bumping the action bumps zizmor.
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@bd12b495c90993a4301c73398142281a61499af3 # v0.9.0
         with:
-          version: ${{ env.ZIZMOR_VERSION }}
           advanced-security: false
           annotations: true
