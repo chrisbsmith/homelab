@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/chrisbsmith/records
-              tag: 0.12.0@sha256:805ea0743335e5b8e9d137fc602be117318d9498255f069ce0af26652cc6c246
+              tag: 0.12.1@sha256:1858ecac5e30140161b5a19736c99cd4b82bfcde85ffe65d8ea9640332e12004
             env:
               DATA_DIR: /data
               PORT: &port 8000
